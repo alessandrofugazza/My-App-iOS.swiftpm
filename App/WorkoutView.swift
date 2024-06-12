@@ -10,11 +10,12 @@ struct WorkoutView: View {
     enum FocusMuscleGroup: CaseIterable {
         case armsAdd
         case armsAbd
+        case legs
+        case abs
     }
     
     enum CommonMuscleGroup: CaseIterable {
-        case legs
-        case abs
+        
     }
     
     enum Priority: CaseIterable {
@@ -144,18 +145,9 @@ struct WorkoutView: View {
                 }
                 i/=2
             }
-            let todaysCommonMuscleGroup = CommonMuscleGroup.allCases.randomElement()
             
-            switch todaysCommonMuscleGroup {
-            case .legs:
-                allCommonExercises = setUpExercises(p1: legs.dLegsI, p2: legs.dLegsII, p3: legs.dLegsIII)
-            case .abs:
-                allCommonExercises = setUpExercises(p1: abs.dAbsI, p2: abs.dAbsII, p3: abs.dAbsIII)
-            default:
-                print("fuck you")
-            }
-            let randomPriority = prioritiesPool.randomElement()!
-            let newExercise = allCommonExercises[randomPriority]?.randomElement()!
+            
+            
             
             
             let todaysFocusMuscleGroup = FocusMuscleGroup.allCases.randomElement()
@@ -165,6 +157,10 @@ struct WorkoutView: View {
                 allFocusExercises = setUpExercises(p1: armsAdd.dArmsAddI, p2: armsAdd.dArmsAddII, p3: armsAdd.dArmsAddIII)
             case .armsAbd:
                 allFocusExercises = setUpExercises(p1: armsAbd.dArmsAbdI, p2: armsAbd.dArmsAbdII, p3: armsAbd.dArmsAbdIII)
+            case .legs:
+                allFocusExercises = setUpExercises(p1: legs.dLegsI, p2: legs.dLegsII, p3: legs.dLegsIII)
+            case .abs:
+                allFocusExercises = setUpExercises(p1: abs.dAbsI, p2: abs.dAbsII, p3: abs.dAbsIII)
             default:
                 print("fuck you")
             }
