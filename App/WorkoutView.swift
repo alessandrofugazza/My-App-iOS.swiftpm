@@ -7,15 +7,11 @@ struct WorkoutView: View {
     @EnvironmentObject var armsAbd: ArmsAbdExercises
     @EnvironmentObject var armsAdd: ArmsAddExercises
     
-    enum FocusMuscleGroup: CaseIterable {
+    enum MuscleGroup: CaseIterable {
         case armsAdd
         case armsAbd
         case legs
         case abs
-    }
-    
-    enum CommonMuscleGroup: CaseIterable {
-        
     }
     
     enum Priority: CaseIterable {
@@ -29,14 +25,13 @@ struct WorkoutView: View {
     @State var newExercise: Exercise = Exercise(name: "", type: nil, bodyPart: nil)
     @State var prevExercise: Exercise = Exercise(name: "", type: nil, bodyPart: nil)
     @State var scale: CGFloat = 1.0
-    @State var allCommonExercises: [Priority: [Exercise]] = [:]
-    @State var allFocusExercises: [Priority: [Exercise]] = [:]
+    @State var allExercises: [Priority: [Exercise]] = [:]
     @State var flag = false
     
     private func setUpExercises(p1: [ED], p2: [ED], p3: [ED]) -> [Priority: [Exercise]] {
         var exercisesDict: [Priority: [Exercise]] = [:]
         let allExercisesDrafts = [p1, p2, p3]
-
+        
         var i = 0
         for priority in Priority.allCases {
             var exercises: [Exercise] = []
@@ -79,13 +74,13 @@ struct WorkoutView: View {
                 .font(.largeTitle)
                 .frame(minHeight: 200)
                 .animation(.default, value: newExercise.id)
-                Divider()
+            Divider()
                 .padding()
             Button(action: {
                 repeat {
                     let randomPriority = prioritiesPool.randomElement()!
                     flag = false
-                    if let selectedExercise = allFocusExercises[randomPriority]?.randomElement() {
+                    if let selectedExercise = allExercises[randomPriority]?.randomElement() {
                         newExercise = selectedExercise
                     } else {
                         newExercise=Exercise(name: "fucking error mate")
@@ -146,21 +141,17 @@ struct WorkoutView: View {
                 i/=2
             }
             
+            let todaysMuscleGroup = MuscleGroup.allCases.randomElement()
             
-            
-            
-            
-            let todaysFocusMuscleGroup = FocusMuscleGroup.allCases.randomElement()
-            
-            switch todaysFocusMuscleGroup {
+            switch todaysMuscleGroup {
             case .armsAdd:
-                allFocusExercises = setUpExercises(p1: armsAdd.dArmsAddI, p2: armsAdd.dArmsAddII, p3: armsAdd.dArmsAddIII)
+                allExercises = setUpExercises(p1: armsAdd.dArmsAddI, p2: armsAdd.dArmsAddII, p3: armsAdd.dArmsAddIII)
             case .armsAbd:
-                allFocusExercises = setUpExercises(p1: armsAbd.dArmsAbdI, p2: armsAbd.dArmsAbdII, p3: armsAbd.dArmsAbdIII)
+                allExercises = setUpExercises(p1: armsAbd.dArmsAbdI, p2: armsAbd.dArmsAbdII, p3: armsAbd.dArmsAbdIII)
             case .legs:
-                allFocusExercises = setUpExercises(p1: legs.dLegsI, p2: legs.dLegsII, p3: legs.dLegsIII)
+                allExercises = setUpExercises(p1: legs.dLegsI, p2: legs.dLegsII, p3: legs.dLegsIII)
             case .abs:
-                allFocusExercises = setUpExercises(p1: abs.dAbsI, p2: abs.dAbsII, p3: abs.dAbsIII)
+                allExercises = setUpExercises(p1: abs.dAbsI, p2: abs.dAbsII, p3: abs.dAbsIII)
             default:
                 print("fuck you")
             }
@@ -168,7 +159,6 @@ struct WorkoutView: View {
         }
         
     }
-    
 }
 
 struct WorkoutView_Previews: PreviewProvider {
