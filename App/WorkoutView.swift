@@ -2,17 +2,7 @@ import SwiftUI
 
 struct WorkoutView: View {
     
-    @EnvironmentObject var legs: LegsExercises
-    @EnvironmentObject var abs: AbsExercises
-    @EnvironmentObject var armsAbd: ArmsAbdExercises
-    @EnvironmentObject var armsAdd: ArmsAddExercises
-    
-    enum MuscleGroup: CaseIterable {
-        case armsAdd
-        case armsAbd
-        case legs
-        case abs
-    }
+    @EnvironmentObject var exercises: Exercises
     
     enum Priority: CaseIterable {
         case III
@@ -141,20 +131,9 @@ struct WorkoutView: View {
                 i/=2
             }
             
-            let todaysMuscleGroup = MuscleGroup.allCases.randomElement()
             
-            switch todaysMuscleGroup {
-            case .armsAdd:
-                allExercises = setUpExercises(p1: armsAdd.dArmsAddI, p2: armsAdd.dArmsAddII, p3: armsAdd.dArmsAddIII)
-            case .armsAbd:
-                allExercises = setUpExercises(p1: armsAbd.dArmsAbdI, p2: armsAbd.dArmsAbdII, p3: armsAbd.dArmsAbdIII)
-            case .legs:
-                allExercises = setUpExercises(p1: legs.dLegsI, p2: legs.dLegsII, p3: legs.dLegsIII)
-            case .abs:
-                allExercises = setUpExercises(p1: abs.dAbsI, p2: abs.dAbsII, p3: abs.dAbsIII)
-            default:
-                print("fuck you")
-            }
+            allExercises = setUpExercises(p1: exercises.dExercisesI, p2: exercises.dExercisesII, p3: exercises.dExercisesIII)
+            
             
         }
         

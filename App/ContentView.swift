@@ -11,10 +11,6 @@ struct ContentView: View {
                 .tabItem { 
                     Label("Workout", systemImage: "dumbbell") 
                 }
-            ExerciseListsView()
-                .tabItem { 
-                    Label("Exercise List", systemImage: "list.dash") 
-                }
         }
         
     }
