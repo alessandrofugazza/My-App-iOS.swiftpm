@@ -2,11 +2,17 @@ import SwiftUI
 
 @main
 struct WorkoutApp: App {
-    @StateObject var exercisesData = Exercises()
+    @StateObject var legsExercisesData = LegsExercisesData()
+    @StateObject var absExercisesData = AbsExercisesData()
+    @StateObject var armsAbdExercisesData = ArmsAbdExercisesData()
+    @StateObject var armsAddExercisesData = ArmsAddExercisesData()
     var body: some Scene {
         WindowGroup {
             ContentView()
-            .environmentObject(exercisesData)
+            .environmentObject(legsExercisesData)
+            .environmentObject(absExercisesData)
+            .environmentObject(armsAbdExercisesData)
+            .environmentObject(armsAddExercisesData)
         }
         
     }

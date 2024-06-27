@@ -2,50 +2,50 @@ import SwiftUI
 
 struct WorkoutView: View {
     
-    @EnvironmentObject var exercises: Exercises
+    @EnvironmentObject var legsExercises: LegsExercisesData
+    @EnvironmentObject var absExercises: AbsExercisesData
+    @EnvironmentObject var armsAbdExercises: ArmsAbdExercisesData
+    @EnvironmentObject var armsAddExercises: ArmsAddExercisesData
     
-    enum Priority: CaseIterable {
-        case III
-        case II
-        case I
-    }
     
-    @State var prioritiesPool: [Priority] = []
     
-    @State var newExercise: Exercise = Exercise(name: "", type: nil, bodyPart: nil)
-    @State var prevExercise: Exercise = Exercise(name: "", type: nil, bodyPart: nil)
+    @State var prioritiesPool: [EPriority] = []
+    
+    @State var newExercise: Exercise = Exercise(name: "")
+    @State var prevExercise: Exercise = Exercise(name: "")
     @State var scale: CGFloat = 1.0
-    @State var allExercises: [Priority: [Exercise]] = [:]
+    @State var allExercises: [EPriority: [Exercise]] = [:]
     @State var flag = false
     
-    private func setUpExercises(p1: [ED], p2: [ED], p3: [ED]) -> [Priority: [Exercise]] {
-        var exercisesDict: [Priority: [Exercise]] = [:]
+    private func setUpExercises(p1: [ExerciseDraft], p2: [ExerciseDraft], p3: [ExerciseDraft]) -> [EPriority: [Exercise]] {
+        var exercisesDict: [EPriority: [Exercise]] = [:]
         let allExercisesDrafts = [p1, p2, p3]
         
         var i = 0
-        for priority in Priority.allCases {
+        for priority in EPriority.allCases {
             var exercises: [Exercise] = []
             for draft in allExercisesDrafts[i] {
-                if draft.rl ?? false {
+                if draft.sideSplit ?? false {
                     let newExerciseR = Exercise(
-                        name: draft.n.capitalized.appending(" (R)"), 
-                        type: draft.t, 
-                        bodyPart: draft.bp,
-                        side: "r"
+                        name: draft.name.capitalized.appending(" (R)"), 
+                        movementType: draft.movementType, 
+                        muscle: draft.muscle,
+                        side: .right
                     )
                     let newExerciseL = Exercise(
-                        name: draft.n.capitalized.appending(" (L)"), 
-                        type: draft.t, 
-                        bodyPart: draft.bp,
-                        side: "l"
+                        name: draft.name.capitalized.appending(" (L)"), 
+                        movementType: draft.movementType, 
+                        muscle: draft.muscle,
+                        side: .left
                     )
                     exercises.append(newExerciseR)
                     exercises.append(newExerciseL)
                 } else {
                     let newExercise = Exercise(
-                        name: draft.n.capitalized, 
-                        type: draft.t, 
-                        bodyPart: draft.bp
+                        name: draft.name.capitalized, 
+                        movementType: draft.movementType, 
+                        muscle: draft.muscle,
+                        side: draft.singleSide
                     )
                     exercises.append(newExercise)
                 }
@@ -79,8 +79,8 @@ struct WorkoutView: View {
                         flag = true
                         continue
                     }
-                    if (newExercise.type != nil && prevExercise.type  != nil) {
-                        if (newExercise.type == prevExercise.type) {
+                    if (newExercise.movementType != nil && prevExercise.movementType  != nil) {
+                        if (newExercise.movementType == prevExercise.movementType) {
                             flag = true
                             continue
                         }
@@ -91,8 +91,8 @@ struct WorkoutView: View {
                             continue
                         }
                     }
-                    if (newExercise.bodyPart != nil && prevExercise.bodyPart  != nil) {
-                        if (newExercise.bodyPart == prevExercise.bodyPart) {
+                    if (newExercise.muscle != nil && prevExercise.muscle  != nil) {
+                        if (newExercise.muscle == prevExercise.muscle) {
                             flag = true
                             continue
                         }
@@ -124,7 +124,7 @@ struct WorkoutView: View {
         }
         .onAppear {
             var i = 4
-            for priority in Priority.allCases {
+            for priority in EPriority.allCases {
                 for _ in 1...i {
                     prioritiesPool.append(priority)
                 }
@@ -132,7 +132,11 @@ struct WorkoutView: View {
             }
             
             
-            allExercises = setUpExercises(p1: exercises.dExercisesI, p2: exercises.dExercisesII, p3: exercises.dExercisesIII)
+            allExercises = setUpExercises(
+                p1: 
+                    legsExercises.dLegsI + absExercises.dAbsI + armsAbdExercises.dArmsAbdI + armsAddExercises.dArmsAddI, 
+                p2: legsExercises.dLegsII + absExercises.dAbsII + armsAbdExercises.dArmsAbdII + armsAddExercises.dArmsAddII, 
+                p3: legsExercises.dLegsIII + absExercises.dAbsIII + armsAbdExercises.dArmsAbdIII + armsAddExercises.dArmsAddIII)
             
             
         }
