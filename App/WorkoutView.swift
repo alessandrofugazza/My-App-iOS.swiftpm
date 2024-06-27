@@ -16,6 +16,7 @@ struct WorkoutView: View {
     @State var scale: CGFloat = 1.0
     @State var allExercises: [EPriority: [Exercise]] = [:]
     @State var flag = false
+    @State var randomPriority: EPriority = .III
     
     private func setUpExercises(p1: [ExerciseDraft], p2: [ExerciseDraft], p3: [ExerciseDraft]) -> [EPriority: [Exercise]] {
         var exercisesDict: [EPriority: [Exercise]] = [:]
@@ -60,15 +61,29 @@ struct WorkoutView: View {
     
     var body: some View {
         VStack {
-            Text(newExercise.name)
-                .font(.largeTitle)
-                .frame(minHeight: 200)
-                .animation(.default, value: newExercise.id)
+            HStack {
+                Text(newExercise.name)
+                    .font(.largeTitle)
+                    .frame(minHeight: 200)
+                    .animation(.default, value: newExercise.id)
+                VStack {
+                    Text(randomPriority.rawValue)
+                    if let muscle = newExercise.muscle {
+                        Text(muscle.rawValue)
+                            .animation(.default, value: newExercise.id)
+                    } 
+                    if let movementType = newExercise.movementType {
+                        Text(movementType.rawValue)
+                            .animation(.default, value: newExercise.id)
+                    }
+                }
+            }
+            
             Divider()
                 .padding()
             Button(action: {
                 repeat {
-                    let randomPriority = prioritiesPool.randomElement()!
+                    randomPriority = prioritiesPool.randomElement()!
                     flag = false
                     if let selectedExercise = allExercises[randomPriority]?.randomElement() {
                         newExercise = selectedExercise
