@@ -1,6 +1,6 @@
 enum EPriority: String, CaseIterable {
-    case III = "III"
+    case III = "I"
     case II = "II"
-    case I = "I"
+    case I = "III"
 }
 
