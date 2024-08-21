@@ -2,12 +2,10 @@ import SwiftUI
 
 class ArmsAbdExercisesData: ObservableObject {
     @Published var dArmsAbdI = [
-        
         ExerciseDraft(name: "sitting triceps", muscle: .tricep, sideSplit: true),
         ExerciseDraft(name: "push-ups", movementType: .pushup),
         ExerciseDraft(name: "lateral deltoid", muscle: .deltoid, sideSplit: true),
         ExerciseDraft(name: "reverse wrist curl (L)", muscle: .forearmAbd),
-        
     ]
     
     @Published var dArmsAbdII = [

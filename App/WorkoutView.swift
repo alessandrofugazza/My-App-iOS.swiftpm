@@ -16,7 +16,7 @@ struct WorkoutView: View {
     @State var scale: CGFloat = 1.0
     @State var allExercises: [EPriority: [Exercise]] = [:]
     @State var flag = false
-    @State var randomPriority: EPriority = .III
+    @State var randomPriority: EPriority? = nil
     
     private func setUpExercises(p1: [ExerciseDraft], p2: [ExerciseDraft], p3: [ExerciseDraft]) -> [EPriority: [Exercise]] {
         var exercisesDict: [EPriority: [Exercise]] = [:]
@@ -67,7 +67,9 @@ struct WorkoutView: View {
                     .frame(minHeight: 200)
                     .animation(.default, value: newExercise.id)
                 VStack {
-                    Text(randomPriority.rawValue)
+                    if randomPriority != nil {
+                        Text(randomPriority!.rawValue)
+                    }  
                     if let muscle = newExercise.muscle {
                         Text(muscle.rawValue)
                             .animation(.default, value: newExercise.id)
@@ -85,7 +87,7 @@ struct WorkoutView: View {
                 repeat {
                     randomPriority = prioritiesPool.randomElement()!
                     flag = false
-                    if let selectedExercise = allExercises[randomPriority]?.randomElement() {
+                    if let selectedExercise = allExercises[randomPriority!]?.randomElement() {
                         newExercise = selectedExercise
                     } else {
                         newExercise=Exercise(name: "fucking error mate")
