@@ -32,14 +32,16 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .right,
-                        repetitions: draft.repetitions
+                        repetitions: draft.repetitions,
+                        hashId: draft.name.hashValue
                     )
                     let newExerciseL = Exercise(
                         name: draft.name.capitalized.appending(" (L)"), 
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .left,
-                        repetitions: draft.repetitions
+                        repetitions: draft.repetitions,
+                        hashId: draft.name.hashValue
                     )
                     exercises.append(newExerciseR)
                     exercises.append(newExerciseL)
@@ -49,7 +51,8 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: draft.singleSide,
-                        repetitions: draft.repetitions
+                        repetitions: draft.repetitions,
+                        hashId: draft.name.hashValue
                     )
                     exercises.append(newExercise)
                 }
@@ -66,7 +69,6 @@ struct WorkoutView: View {
         VStack {
             HStack {
                 VStack {
-                    
                     HStack {
                         Text(newExercise.name)
                             .font(.largeTitle)
@@ -112,6 +114,9 @@ struct WorkoutView: View {
                                 .background(Color.gray.opacity(0.2))
                                 .clipShape(Circle())
                         }
+                    }
+                    HStack {
+                        Text(String(newExercise.hashId))
                     }
                 }
             }

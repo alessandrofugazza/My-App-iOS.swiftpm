@@ -17,6 +17,8 @@ struct Exercise: Identifiable {
     var muscle: EMuscle?
     var side: ESide?
     var repetitions: Int = 0
+    var hashId: Int = 0
     
     var id = UUID()
+    
 }
