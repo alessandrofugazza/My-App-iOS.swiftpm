@@ -31,13 +31,15 @@ struct WorkoutView: View {
                         name: draft.name.capitalized.appending(" (R)"), 
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
-                        side: .right
+                        side: .right,
+                        repetitions: draft.repetitions
                     )
                     let newExerciseL = Exercise(
                         name: draft.name.capitalized.appending(" (L)"), 
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
-                        side: .left
+                        side: .left,
+                        repetitions: draft.repetitions
                     )
                     exercises.append(newExerciseR)
                     exercises.append(newExerciseL)
@@ -46,7 +48,8 @@ struct WorkoutView: View {
                         name: draft.name.capitalized, 
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
-                        side: draft.singleSide
+                        side: draft.singleSide,
+                        repetitions: draft.repetitions
                     )
                     exercises.append(newExercise)
                 }
@@ -62,25 +65,56 @@ struct WorkoutView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(newExercise.name)
-                    .font(.largeTitle)
-                    .frame(minHeight: 200)
-                    .animation(.default, value: newExercise.id)
                 VStack {
-                    if randomPriority != nil {
-                        Text(randomPriority!.rawValue)
-                    }  
-                    if let muscle = newExercise.muscle {
-                        Text(muscle.rawValue)
+                    
+                    HStack {
+                        Text(newExercise.name)
+                            .font(.largeTitle)
+                            .frame(minHeight: 200)
                             .animation(.default, value: newExercise.id)
-                    } 
-                    if let movementType = newExercise.movementType {
-                        Text(movementType.rawValue)
-                            .animation(.default, value: newExercise.id)
+                        VStack {
+                            if randomPriority != nil {
+                                Text(randomPriority!.rawValue)
+                            }  
+                            if let muscle = newExercise.muscle {
+                                Text(muscle.rawValue)
+                                    .animation(.default, value: newExercise.id)
+                            } 
+                            if let movementType = newExercise.movementType {
+                                Text(movementType.rawValue)
+                                    .animation(.default, value: newExercise.id)
+                            }
+                        }
+                    }
+                    HStack {
+                        Button(action: {
+                            if newExercise.repetitions > 0 {
+                                newExercise.repetitions -= 1
+                            }
+                        }) {
+                            Text("-")
+                                .font(.largeTitle)
+                                .padding()
+                                .background(Color.gray.opacity(0.2))
+                                .clipShape(Circle())
+                        }
+                        
+                        Text("\(newExercise.repetitions) reps")
+                            .font(.title)
+                            .padding(.horizontal)
+                        
+                        Button(action: {
+                            newExercise.repetitions += 1
+                        }) {
+                            Text("+")
+                                .font(.largeTitle)
+                                .padding()
+                                .background(Color.gray.opacity(0.2))
+                                .clipShape(Circle())
+                        }
                     }
                 }
             }
-            
             Divider()
                 .padding()
             Button(action: {

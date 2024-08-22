@@ -6,6 +6,7 @@ struct ExerciseDraft: Identifiable {
     var muscle: EMuscle?
     var singleSide: ESide?
     var sideSplit: Bool?
+    var repetitions: Int = 0
     
     var id = UUID()
 }
@@ -15,6 +16,7 @@ struct Exercise: Identifiable {
     var movementType: EMovementType?
     var muscle: EMuscle?
     var side: ESide?
+    var repetitions: Int = 0
     
     var id = UUID()
 }
