@@ -18,13 +18,13 @@ struct WorkoutView: View {
     @State var randomPriority: EPriority? = nil
     
     
-    func saveRepetitions(_ repetitions: Int, for hashId: Int) {
-        let key = "reps_\(hashId)"
+    func saveRepetitions(_ repetitions: Int, for fakeId: String) {
+        let key = "reps_\(fakeId)"
         UserDefaults.standard.set(repetitions, forKey: key)
     }
     
-    func getRepetitions(for hashId: Int) -> Int {
-        let key = "reps_\(hashId)"
+    func getRepetitions(for fakeId: String) -> Int {
+        let key = "reps_\(fakeId)"
         return UserDefaults.standard.integer(forKey: key)
     }
     
@@ -43,16 +43,16 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .right,
-                        repetitions: getRepetitions(for: newExercise.hashId),
-                        hashId: draft.name.hashValue
+                        repetitions: getRepetitions(for: newExercise.fakeId),
+                        fakeId: draft.fakeId
                     )
                     let newExerciseL = Exercise(
                         name: draft.name.capitalized.appending(" (L)"), 
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .left,
-                        repetitions: getRepetitions(for: newExercise.hashId),
-                        hashId: draft.name.hashValue
+                        repetitions: getRepetitions(for: newExercise.fakeId),
+                        fakeId: draft.fakeId
                     )
                     exercises.append(newExerciseR)
                     exercises.append(newExerciseL)
@@ -62,8 +62,9 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: draft.singleSide,
-                        repetitions: getRepetitions(for: newExercise.hashId),
-                        hashId: draft.name.hashValue
+                        repetitions: getRepetitions(for: newExercise.fakeId),
+                        fakeId: draft.fakeId
+
                     )
                     exercises.append(newExercise)
                 }
@@ -103,9 +104,9 @@ struct WorkoutView: View {
                         Button(action: {
                             
                             if newExercise.repetitions > 0 {
-                                var currentReps = getRepetitions(for: newExercise.hashId)
+                                var currentReps = getRepetitions(for: newExercise.fakeId)
                                 currentReps -= 1
-                                saveRepetitions(currentReps, for: newExercise.hashId)
+                                saveRepetitions(currentReps, for: newExercise.fakeId)
                             }
                         }) {
                             Text("-")
@@ -116,14 +117,14 @@ struct WorkoutView: View {
                         }
                         
                 
-                        Text("\(getRepetitions(for: newExercise.hashId)) reps")
+                        Text("\(getRepetitions(for: newExercise.fakeId)) reps")
                             .font(.title)
                             .padding(.horizontal)
                         
                         Button(action: {
-                            var currentReps = getRepetitions(for: newExercise.hashId)
+                            var currentReps = getRepetitions(for: newExercise.fakeId)
                             currentReps += 1
-                            saveRepetitions(currentReps, for: newExercise.hashId)
+                            saveRepetitions(currentReps, for: newExercise.fakeId)
                         }) {
                             Text("+")
                                 .font(.largeTitle)
@@ -131,9 +132,6 @@ struct WorkoutView: View {
                                 .background(Color.gray.opacity(0.2))
                                 .clipShape(Circle())
                         }
-                    }
-                    HStack {
-                        Text(String(newExercise.hashId))
                     }
                 }
             }
@@ -205,18 +203,18 @@ struct WorkoutView: View {
             }
             
             
-//            allExercises = setUpExercises(
-//                p1: legsExercises.dLegsI + absExercises.dAbsI + armsAbdExercises.dArmsAbdI + armsAddExercises.dArmsAddI, 
-//                p2: legsExercises.dLegsII + absExercises.dAbsII + armsAbdExercises.dArmsAbdII + armsAddExercises.dArmsAddII, 
-//                p3: legsExercises.dLegsIII + absExercises.dAbsIII + armsAbdExercises.dArmsAbdIII + armsAddExercises.dArmsAddIII
-//            )
-            
             allExercises = setUpExercises(
-                p1: 
-                    debugExercises.dDebugI, 
-                p2: debugExercises.dDebugII, 
-                p3: debugExercises.dDebugIII
+                p1: legsExercises.dLegsI + absExercises.dAbsI + armsAbdExercises.dArmsAbdI + armsAddExercises.dArmsAddI, 
+                p2: legsExercises.dLegsII + absExercises.dAbsII + armsAbdExercises.dArmsAbdII + armsAddExercises.dArmsAddII, 
+                p3: legsExercises.dLegsIII + absExercises.dAbsIII + armsAbdExercises.dArmsAbdIII + armsAddExercises.dArmsAddIII
             )
+            
+//            allExercises = setUpExercises(
+//                p1: 
+//                    debugExercises.dDebugI, 
+//                p2: debugExercises.dDebugII, 
+//                p3: debugExercises.dDebugIII
+//            )
             
             
         }

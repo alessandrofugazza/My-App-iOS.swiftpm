@@ -2,7 +2,7 @@ import SwiftUI
 
 class DebugExercisesData: ObservableObject {
     @Published var dDebugI = [
-        ExerciseDraft(name: "horizontal abs"),
+        ExerciseDraft(name: "lateral abs", muscle: .abs, sideSplit: true), 
     ]
     
     @Published var dDebugII = [
