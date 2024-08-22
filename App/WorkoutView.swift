@@ -17,6 +17,7 @@ struct WorkoutView: View {
     @State var flag = false
     @State var randomPriority: EPriority? = nil
     
+    @State var currentRepetitions: Int = 0
     
     func saveRepetitions(_ repetitions: Int, for fakeId: String) {
         let key = "reps_\(fakeId)"
@@ -103,10 +104,9 @@ struct WorkoutView: View {
                     HStack {
                         Button(action: {
                             
-                            if newExercise.repetitions > 0 {
-                                var currentReps = getRepetitions(for: newExercise.fakeId)
-                                currentReps -= 1
-                                saveRepetitions(currentReps, for: newExercise.fakeId)
+                            if currentRepetitions > 0 {
+                                currentRepetitions -= 1
+                                saveRepetitions(currentRepetitions, for: newExercise.fakeId)
                             }
                         }) {
                             Text("-")
@@ -117,14 +117,13 @@ struct WorkoutView: View {
                         }
                         
                 
-                        Text("\(getRepetitions(for: newExercise.fakeId)) reps")
+                        Text("\(currentRepetitions) reps")
                             .font(.title)
                             .padding(.horizontal)
                         
                         Button(action: {
-                            var currentReps = getRepetitions(for: newExercise.fakeId)
-                            currentReps += 1
-                            saveRepetitions(currentReps, for: newExercise.fakeId)
+                            currentRepetitions += 1
+                            saveRepetitions(currentRepetitions, for: newExercise.fakeId)
                         }) {
                             Text("+")
                                 .font(.largeTitle)
@@ -172,6 +171,7 @@ struct WorkoutView: View {
                     flag == true
                 ) 
                 prevExercise = newExercise
+                currentRepetitions = getRepetitions(for: newExercise.fakeId)
                 withAnimation {
                     scale = 1.1
                 }
