@@ -85,8 +85,8 @@ struct WorkoutView: View {
                     HStack {
                         Text(newExercise.name)
                             .font(.largeTitle)
-                            .frame(minHeight: 200)
-                            .animation(.default, value: newExercise.id)
+//                            .frame(minHeight: 200)
+                            
                         VStack {
                             if randomPriority != nil {
                                 Text(randomPriority!.rawValue)
@@ -101,19 +101,21 @@ struct WorkoutView: View {
                             }
                         }
                     }
+                    .animation(.default, value: newExercise.id)
                     HStack {
                         Button(action: {
-                            
                             if currentRepetitions > 0 {
                                 currentRepetitions -= 1
                                 saveRepetitions(currentRepetitions, for: newExercise.fakeId)
                             }
                         }) {
-                            Text("-")
+                            Image(systemName: "minus.circle")
                                 .font(.largeTitle)
-                                .padding()
-                                .background(Color.gray.opacity(0.2))
-                                .clipShape(Circle())
+//                            Text("-")
+//                                .font(.largeTitle)
+//                                .padding()
+//                                .background(Color.gray.opacity(0.2))
+//                                .clipShape(Circle())
                         }
                         
                 
@@ -125,13 +127,16 @@ struct WorkoutView: View {
                             currentRepetitions += 1
                             saveRepetitions(currentRepetitions, for: newExercise.fakeId)
                         }) {
-                            Text("+")
+                            Image(systemName: "plus.circle")
                                 .font(.largeTitle)
-                                .padding()
-                                .background(Color.gray.opacity(0.2))
-                                .clipShape(Circle())
+//                            Text("+")
+//                                .font(.largeTitle)
+//                                .padding()
+//                                .background(Color.gray.opacity(0.2))
+//                                .clipShape(Circle())
                         }
                     }
+                    .padding()
                 }
             }
             Divider()
