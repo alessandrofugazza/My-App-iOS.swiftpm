@@ -19,6 +19,7 @@ class ArmsAddExercisesData: ObservableObject {
         ExerciseDraft(name: "biceps barbell", muscle: .bicep),
         ExerciseDraft(name: "bucket raise", movementType: .traction, sideSplit: true),
         ExerciseDraft(name: "vertical pecs", muscle: .pectoral, sideSplit: true),
+        ExerciseDraft(name: "barbell biceps", muscle: .bicep)
     ]
 }
 

@@ -21,7 +21,7 @@ class ArmsAbdExercisesData: ObservableObject {
         ExerciseDraft(name: "overhead hammer raise", movementType: .pushup, sideSplit: true),
         ExerciseDraft(name: "inclined push-ups", movementType: .pushup),
         ExerciseDraft(name: "reclined push-ups", movementType: .pushup),
-        
+        ExerciseDraft(name: "laying barbell triceps", muscle: .tricep),
         
     ]
 }
