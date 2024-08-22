@@ -6,6 +6,7 @@ struct WorkoutApp: App {
     @StateObject var absExercisesData = AbsExercisesData()
     @StateObject var armsAbdExercisesData = ArmsAbdExercisesData()
     @StateObject var armsAddExercisesData = ArmsAddExercisesData()
+    @StateObject var debugExercisesData = DebugExercisesData()
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -13,6 +14,7 @@ struct WorkoutApp: App {
             .environmentObject(absExercisesData)
             .environmentObject(armsAbdExercisesData)
             .environmentObject(armsAddExercisesData)
+            .environmentObject(debugExercisesData)
         }
         
     }

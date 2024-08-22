@@ -6,8 +6,7 @@ struct WorkoutView: View {
     @EnvironmentObject var absExercises: AbsExercisesData
     @EnvironmentObject var armsAbdExercises: ArmsAbdExercisesData
     @EnvironmentObject var armsAddExercises: ArmsAddExercisesData
-    
-    
+    @EnvironmentObject var debugExercises: DebugExercisesData
     
     @State var prioritiesPool: [EPriority] = []
     
@@ -17,6 +16,18 @@ struct WorkoutView: View {
     @State var allExercises: [EPriority: [Exercise]] = [:]
     @State var flag = false
     @State var randomPriority: EPriority? = nil
+    
+    
+    func saveRepetitions(_ repetitions: Int, for hashId: Int) {
+        let key = "reps_\(hashId)"
+        UserDefaults.standard.set(repetitions, forKey: key)
+    }
+    
+    func getRepetitions(for hashId: Int) -> Int {
+        let key = "reps_\(hashId)"
+        return UserDefaults.standard.integer(forKey: key)
+    }
+    
     
     private func setUpExercises(p1: [ExerciseDraft], p2: [ExerciseDraft], p3: [ExerciseDraft]) -> [EPriority: [Exercise]] {
         var exercisesDict: [EPriority: [Exercise]] = [:]
@@ -32,7 +43,7 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .right,
-                        repetitions: draft.repetitions,
+                        repetitions: getRepetitions(for: newExercise.hashId),
                         hashId: draft.name.hashValue
                     )
                     let newExerciseL = Exercise(
@@ -40,7 +51,7 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .left,
-                        repetitions: draft.repetitions,
+                        repetitions: getRepetitions(for: newExercise.hashId),
                         hashId: draft.name.hashValue
                     )
                     exercises.append(newExerciseR)
@@ -51,7 +62,7 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: draft.singleSide,
-                        repetitions: draft.repetitions,
+                        repetitions: getRepetitions(for: newExercise.hashId),
                         hashId: draft.name.hashValue
                     )
                     exercises.append(newExercise)
@@ -90,8 +101,11 @@ struct WorkoutView: View {
                     }
                     HStack {
                         Button(action: {
+                            
                             if newExercise.repetitions > 0 {
-                                newExercise.repetitions -= 1
+                                var currentReps = getRepetitions(for: newExercise.hashId)
+                                currentReps -= 1
+                                saveRepetitions(currentReps, for: newExercise.hashId)
                             }
                         }) {
                             Text("-")
@@ -101,12 +115,15 @@ struct WorkoutView: View {
                                 .clipShape(Circle())
                         }
                         
-                        Text("\(newExercise.repetitions) reps")
+                
+                        Text("\(getRepetitions(for: newExercise.hashId)) reps")
                             .font(.title)
                             .padding(.horizontal)
                         
                         Button(action: {
-                            newExercise.repetitions += 1
+                            var currentReps = getRepetitions(for: newExercise.hashId)
+                            currentReps += 1
+                            saveRepetitions(currentReps, for: newExercise.hashId)
                         }) {
                             Text("+")
                                 .font(.largeTitle)
@@ -188,11 +205,18 @@ struct WorkoutView: View {
             }
             
             
+//            allExercises = setUpExercises(
+//                p1: legsExercises.dLegsI + absExercises.dAbsI + armsAbdExercises.dArmsAbdI + armsAddExercises.dArmsAddI, 
+//                p2: legsExercises.dLegsII + absExercises.dAbsII + armsAbdExercises.dArmsAbdII + armsAddExercises.dArmsAddII, 
+//                p3: legsExercises.dLegsIII + absExercises.dAbsIII + armsAbdExercises.dArmsAbdIII + armsAddExercises.dArmsAddIII
+//            )
+            
             allExercises = setUpExercises(
                 p1: 
-                    legsExercises.dLegsI + absExercises.dAbsI + armsAbdExercises.dArmsAbdI + armsAddExercises.dArmsAddI, 
-                p2: legsExercises.dLegsII + absExercises.dAbsII + armsAbdExercises.dArmsAbdII + armsAddExercises.dArmsAddII, 
-                p3: legsExercises.dLegsIII + absExercises.dAbsIII + armsAbdExercises.dArmsAbdIII + armsAddExercises.dArmsAddIII)
+                    debugExercises.dDebugI, 
+                p2: debugExercises.dDebugII, 
+                p3: debugExercises.dDebugIII
+            )
             
             
         }
