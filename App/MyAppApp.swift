@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct WorkoutApp: App {
+struct MyAppApp: App {
     @StateObject var legsExercisesData = LegsExercisesData()
     @StateObject var absExercisesData = AbsExercisesData()
     @StateObject var armsAbdExercisesData = ArmsAbdExercisesData()
