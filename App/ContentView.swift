@@ -11,6 +11,14 @@ struct ContentView: View {
                 .tabItem { 
                     Label("Workout", systemImage: "dumbbell") 
                 }
+            MindSourcesView()
+                .tabItem { 
+                    Label("Mind", systemImage: "house") 
+                }
+            PracticalSourcesView()
+                .tabItem { 
+                    Label("Practical", systemImage: "dumbbell") 
+                }
         }
         
     }
