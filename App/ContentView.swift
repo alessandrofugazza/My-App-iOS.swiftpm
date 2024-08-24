@@ -19,6 +19,10 @@ struct ContentView: View {
                 .tabItem { 
                     Label("Practical", systemImage: "dumbbell") 
                 }
+            PlaygroundView()
+                .tabItem { 
+                    Label("Playground", systemImage: "dumbbell") 
+                }
         }
         
     }
