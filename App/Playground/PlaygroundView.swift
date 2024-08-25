@@ -3,14 +3,19 @@ import SwiftUI
 struct PlaygroundView: View {
     var body: some View {
         VStack {
-            
-            Image("MachineLifeformHead")
-                .resizable()
-                .scaledToFit()
-            //            .scaledToFill()
-            Text("こんにちは。")
-                .font(.largeTitle)
+            NavigationStack {
+                Text("Welcome to the Playground")
+                    .font(.largeTitle)
+                Text("Who told you what was down here?")
+                    .font(.caption)
+                List {
+                    NavigationLink(destination: JournalView()) {
+                        Text("Journal")
+                    }
+                }
+            }
         }
+        .padding()
     }
 }
 

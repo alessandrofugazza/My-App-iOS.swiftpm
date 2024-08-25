@@ -3,14 +3,25 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         VStack {
+            Text("My App")
+                .font(.largeTitle)
+            Text("v1.0.0")
+                .font(.caption)
+                .padding(.bottom)
             Image("MachineLifeformHead")
                 .resizable()
                 .scaledToFit()
-            Text("こんにちは。")
-                .font(.largeTitle)
-            Text("元気ですか。")
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(.black, style: StrokeStyle(lineWidth: 5))
+                )
+                .padding(.bottom)
+            Text("こんにちは")
+                .font(.title)
+            Text("元気ですか")
         }
-
+        .padding()
     }
     
 }
