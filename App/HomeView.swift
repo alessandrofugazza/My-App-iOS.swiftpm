@@ -41,6 +41,7 @@ struct HomeView: View {
                 Text("元気ですか")
             }
             Group {
+//                TODO animation
                 Button(action: {
 //                    TODO handle case old quote equals new quote both here and onappear. BORING SHIT
                     quote = allQuotes.randomElement() ?? "Read more books."

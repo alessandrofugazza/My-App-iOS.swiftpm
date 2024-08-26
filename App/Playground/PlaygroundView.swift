@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PlaygroundView: View {
     
-    let NavData: [NavlinkData] = [
+    private let NavData: [NavlinkData] = [
         NavlinkData(label: "Journal", view: AnyView(PGJournalView())),
         NavlinkData(label: "Random from array", view: AnyView(PGRandomFromArrayView())),
         NavlinkData(label: "Grid", view: AnyView(PGGridView()))

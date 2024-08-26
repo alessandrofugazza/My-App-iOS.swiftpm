@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let NavData: [NavlinkData] = [
+    private let NavData: [NavlinkData] = [
         NavlinkData(label: "Home", view: AnyView(HomeView()), image: "house"),
         NavlinkData(label: "Workout", view: AnyView(WorkoutView()), image: "dumbbell"),
         NavlinkData(label: "Mind", view: AnyView(MindSourcesView()), image: "brain.head.profile"),
