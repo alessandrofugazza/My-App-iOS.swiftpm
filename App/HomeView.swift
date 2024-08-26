@@ -3,7 +3,11 @@ import SwiftUI
 struct HomeView: View {
     var allQuotes = [
         "You know, hope is a mistake. If you can't fix what's broken… you'll go insane.",
-        "コノママジャダメ"
+        "コノママジャダメ",
+        "The man who seeks excuses for his actions is doomed to fail.",
+        "Their gross misconduct almost cost us our home, but has given us a renewed sense of purpose and tempered in the fires of adversity, our will is forged anew.",
+        "Fear is born of uncertainty; we fear nothing because our purpose is clear and our path is certain.",
+        "Were it so easy."
     ]
     
     @State private var quote = ""
