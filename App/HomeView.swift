@@ -37,14 +37,20 @@ struct HomeView: View {
                 Text("元気ですか")
             }
             Group {
-                
-                Text(quote)
-                    .italic()
-                    .padding()
-                    .background(Color.gray.opacity(0.3))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding(.vertical)
-                    .frame(maxWidth: .infinity)
+                Button(action: {
+//                    TODO handle case old quote equals new quote both here and onappear. BORING SHIT
+                    quote = allQuotes.randomElement() ?? "Read more books."
+                }) {
+                    Text(quote)
+                        .italic()
+                        .padding()
+                        .background(Color.gray.opacity(0.3))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.vertical)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                }
+                .buttonStyle(PlainButtonStyle()) 
             }
         }
         .onAppear {
