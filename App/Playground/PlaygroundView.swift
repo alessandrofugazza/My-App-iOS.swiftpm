@@ -12,6 +12,9 @@ struct PlaygroundView: View {
                     NavigationLink(destination: JournalView()) {
                         Text("Journal")
                     }
+                    NavigationLink(destination: RandomFromArrayView()) {
+                        Text("Random from array")
+                    }
                 }
             }
         }

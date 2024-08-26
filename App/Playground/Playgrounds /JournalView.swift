@@ -69,10 +69,8 @@ struct JournalView: View {
                                 Text("You know, hope is a mistake. If you can't fix what's broken… you'll go insane.")
                                     .italic()
                                     .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.gray.opacity(0.3))
-                                    )
+                                    .background(Color.gray.opacity(0.3))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
                                     .padding(.vertical)
                                     .frame(maxWidth: .infinity)
                             }
