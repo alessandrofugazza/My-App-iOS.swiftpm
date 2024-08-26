@@ -5,4 +5,5 @@ struct NavlinkData: Identifiable {
     var id = UUID()
     var label: String
     var view: AnyView
+    var image: String?
 }
