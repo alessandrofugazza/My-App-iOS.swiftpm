@@ -19,13 +19,13 @@ struct WorkoutView: View {
     
     @State var currentRepetitions: Int = 0
     
-    func saveRepetitions(_ repetitions: Int, for fakeId: String) {
-        let key = "reps_\(fakeId)"
+    func saveRepetitions(_ repetitions: Int, for id: String) {
+        let key = "reps_\(id)"
         UserDefaults.standard.set(repetitions, forKey: key)
     }
     
-    func getRepetitions(for fakeId: String) -> Int {
-        let key = "reps_\(fakeId)"
+    func getRepetitions(for id: String) -> Int {
+        let key = "reps_\(id)"
         return UserDefaults.standard.integer(forKey: key)
     }
     
@@ -44,16 +44,14 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .right,
-                        repetitions: getRepetitions(for: newExercise.fakeId),
-                        fakeId: draft.fakeId
+                        draftId: draft.id
                     )
                     let newExerciseL = Exercise(
                         name: draft.name.capitalized.appending(" (L)"), 
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: .left,
-                        repetitions: getRepetitions(for: newExercise.fakeId),
-                        fakeId: draft.fakeId
+                        draftId: draft.id
                     )
                     exercises.append(newExerciseR)
                     exercises.append(newExerciseL)
@@ -63,9 +61,7 @@ struct WorkoutView: View {
                         movementType: draft.movementType, 
                         muscle: draft.muscle,
                         side: draft.singleSide,
-                        repetitions: getRepetitions(for: newExercise.fakeId),
-                        fakeId: draft.fakeId
-
+                        draftId: draft.id
                     )
                     exercises.append(newExercise)
                 }
@@ -106,7 +102,7 @@ struct WorkoutView: View {
                         Button(action: {
                             if currentRepetitions > 0 {
                                 currentRepetitions -= 1
-                                saveRepetitions(currentRepetitions, for: newExercise.fakeId)
+                                saveRepetitions(currentRepetitions, for: newExercise.draftId)
                             }
                         }) {
                             Image(systemName: "minus.circle")
@@ -125,7 +121,7 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             currentRepetitions += 1
-                            saveRepetitions(currentRepetitions, for: newExercise.fakeId)
+                            saveRepetitions(currentRepetitions, for: newExercise.draftId)
                         }) {
                             Image(systemName: "plus.circle")
                                 .font(.largeTitle)
@@ -176,7 +172,7 @@ struct WorkoutView: View {
                     flag == true
                 ) 
                 prevExercise = newExercise
-                currentRepetitions = getRepetitions(for: newExercise.fakeId)
+                currentRepetitions = getRepetitions(for: newExercise.draftId)
                 withAnimation {
                     scale = 1.1
                 }
