@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RandomFromArrayView: View {
+struct PGRandomFromArrayView: View {
     var allFunFacts = [
         "There are 12,600 people in my town.",
         "There is a farmers market every Wednesday in the summer.",
@@ -30,9 +30,9 @@ struct RandomFromArrayView: View {
     }
 }
 
-struct RandomFromArrayView_Previews: PreviewProvider {
+struct PGRandomFromArrayView_Previews: PreviewProvider {
     static var previews: some View {
-        RandomFromArrayView()
+        PGRandomFromArrayView()
     }
 }
 

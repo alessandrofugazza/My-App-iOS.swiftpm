@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct JournalView: View {
+struct PGJournalView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -92,8 +92,8 @@ struct JournalView: View {
     }
 }
 
-struct JournalView_Previews: PreviewProvider {
+struct PGJournalView_Previews: PreviewProvider {
     static var previews: some View {
-        JournalView()
+        PGJournalView()
     }
 }

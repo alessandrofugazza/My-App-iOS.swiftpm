@@ -9,11 +9,14 @@ struct PlaygroundView: View {
                 Text("Who told you what was down here?")
                     .font(.caption)
                 List {
-                    NavigationLink(destination: JournalView()) {
+                    NavigationLink(destination: PGJournalView()) {
                         Text("Journal")
                     }
-                    NavigationLink(destination: RandomFromArrayView()) {
+                    NavigationLink(destination: PGRandomFromArrayView()) {
                         Text("Random from array")
+                    }
+                    NavigationLink(destination: PGGridView()) {
+                        Text("Grid")
                     }
                 }
             }
