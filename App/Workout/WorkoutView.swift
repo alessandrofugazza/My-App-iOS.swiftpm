@@ -37,8 +37,9 @@ struct WorkoutView: View {
         var i = 0
         for priority in EPriority.allCases {
             var exercises: [Exercise] = []
+//            REFACTOR this fucking shit
             for draft in allExercisesDrafts[i] {
-                if draft.sideSplit ?? false {
+                if draft.sideSplit {
                     let newExerciseR = Exercise(
                         name: draft.name.capitalized.appending(" (R)"), 
                         movementType: draft.movementType, 
@@ -56,14 +57,26 @@ struct WorkoutView: View {
                     exercises.append(newExerciseR)
                     exercises.append(newExerciseL)
                 } else {
-                    let newExercise = Exercise(
-                        name: draft.name.capitalized, 
-                        movementType: draft.movementType, 
-                        muscle: draft.muscle,
-                        side: draft.singleSide,
-                        draftId: draft.id
-                    )
-                    exercises.append(newExercise)
+                    if draft.singleSide {
+                        let newExercise = Exercise(
+                            name: draft.name.capitalized, 
+                            movementType: draft.movementType, 
+                            muscle: draft.muscle,
+                            side: draft.side,
+                            draftId: draft.id
+                        )
+                        exercises.append(newExercise)
+                    } else {
+                        let newExercise = Exercise(
+                            name: draft.name.capitalized, 
+                            movementType: draft.movementType, 
+                            muscle: draft.muscle,
+                            draftId: draft.id
+                        )
+                        exercises.append(newExercise)
+                    }
+                    
+                    
                 }
             }
             i+=1

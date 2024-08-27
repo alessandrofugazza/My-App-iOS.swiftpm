@@ -4,12 +4,12 @@ class ArmsAddExercisesData: ObservableObject {
     @Published var dArmsAddI = [
         ExerciseDraft(name: "biceps dumbbell", muscle: .bicep, sideSplit: true),
         ExerciseDraft(name: "traction", movementType: .traction, sideSplit: true),
-        ExerciseDraft(name: "wrist curl (L)", muscle: .forearmAdd, singleSide: .left),
+        ExerciseDraft(name: "wrist curl (L)", muscle: .forearmAdd, singleSide: true, side: .left),
     ]
     
     @Published var dArmsAddII = [
         ExerciseDraft(name: "pecs", muscle: .pectoral, sideSplit: true),
-        ExerciseDraft(name: "hammer wrist curl (L)", muscle: .forearmAdd, singleSide: .left),
+        ExerciseDraft(name: "hammer wrist curl (L)", muscle: .forearmAdd, singleSide: true, side: .left),
     ]
     
     @Published var dArmsAddIII = [

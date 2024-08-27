@@ -5,7 +5,7 @@ class ArmsAbdExercisesData: ObservableObject {
         ExerciseDraft(name: "sitting triceps", muscle: .tricep, sideSplit: true),
         ExerciseDraft(name: "push-ups", movementType: .pushup),
         ExerciseDraft(name: "lateral deltoid", muscle: .deltoid, sideSplit: true),
-        ExerciseDraft(name: "reverse wrist curl (L)", muscle: .forearmAbd),
+        ExerciseDraft(name: "reverse wrist curl (L)", muscle: .forearmAbd, singleSide: true, side: .left),
     ]
     
     @Published var dArmsAbdII = [
