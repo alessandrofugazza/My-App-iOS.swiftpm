@@ -96,31 +96,33 @@ struct WorkoutView: View {
                         }
                     }
                     .animation(.default, value: newExercise.id)
-                    HStack {
-                        Button(action: {
-                            if currentRepetitions > 0 {
-                                currentRepetitions -= 1
-                                saveRepetitions(currentRepetitions, for: newExercise.draftId)
+                    if (newExercise.name != "") { 
+                        HStack {
+                            Button(action: {
+                                if currentRepetitions > 0 {
+                                    currentRepetitions -= 1
+                                    saveRepetitions(currentRepetitions, for: newExercise.draftId)
+                                }
+                            }) {
+                                Image(systemName: "minus.circle")
+                                    .font(.largeTitle)
                             }
-                        }) {
-                            Image(systemName: "minus.circle")
-                                .font(.largeTitle)
+                            
+                            
+                            Text("\(currentRepetitions) reps")
+                                .font(.title)
+                                .padding(.horizontal)
+                            
+                            Button(action: {
+                                currentRepetitions += 1
+                                saveRepetitions(currentRepetitions, for: newExercise.draftId)
+                            }) {
+                                Image(systemName: "plus.circle")
+                                    .font(.largeTitle)
+                            }
                         }
-                        
-                
-                        Text("\(currentRepetitions) reps")
-                            .font(.title)
-                            .padding(.horizontal)
-                        
-                        Button(action: {
-                            currentRepetitions += 1
-                            saveRepetitions(currentRepetitions, for: newExercise.draftId)
-                        }) {
-                            Image(systemName: "plus.circle")
-                                .font(.largeTitle)
-                        }
+                        .padding()
                     }
-                    .padding()
                 }
             }
             Divider()
