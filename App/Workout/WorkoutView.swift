@@ -2,16 +2,17 @@ import SwiftUI
 
 struct WorkoutView: View {
     
-    @EnvironmentObject var legsExercises: LegsExercisesData
-    @EnvironmentObject var absExercises: AbsExercisesData
-    @EnvironmentObject var armsAbdExercises: ArmsAbdExercisesData
-    @EnvironmentObject var armsAddExercises: ArmsAddExercisesData
+    @EnvironmentObject var legsExercises: LegsDrafts
+    @EnvironmentObject var absExercises: AbsDrafts
+    @EnvironmentObject var armsExtExercises: ArmsExtDrafts
+    @EnvironmentObject var armsFlexExercises: ArmsFlexDrafts
     @EnvironmentObject var debugExercises: DebugExercisesData
     
     @State var prioritiesPool: [EPriority] = []
     
-    @State var newExercise: Exercise
-    @State var prevExercise: Exercise
+//    IMPROVE is there really no better way to not initialize
+    @State var newExercise: Exercise = Exercise()
+    @State var prevExercise: Exercise = Exercise()
     @State var scale: CGFloat = 1.0
     @State var allExercises: [EPriority: [Exercise]] = [:]
     @State var flag = false
@@ -39,44 +40,28 @@ struct WorkoutView: View {
             var exercises: [Exercise] = []
 //            REFACTOR this fucking shit
             for draft in allExercisesDrafts[i] {
-                if draft.sideSplit {
-                    let newExerciseR = Exercise(
-                        name: draft.name.capitalized.appending(" (R)"), 
-                        movementType: draft.movementType, 
-                        muscle: draft.muscle,
-                        side: .right,
-                        draftId: draft.id
-                    )
-                    let newExerciseL = Exercise(
-                        name: draft.name.capitalized.appending(" (L)"), 
-                        movementType: draft.movementType, 
-                        muscle: draft.muscle,
-                        side: .left,
-                        draftId: draft.id
-                    )
-                    exercises.append(newExerciseR)
-                    exercises.append(newExerciseL)
+                var newExercise = Exercise(
+                    name: draft.name.capitalized,
+                    bodyPart: draft.bodyPart,
+                    movementType: draft.movementType, 
+                    muscle: draft.muscle,
+                    draftId: draft.id
+                )
+                if draft.sideType == .split {
+                    var newExerciseRight = newExercise
+                    var newExerciseLeft = newExercise
+                    newExerciseRight.side = .right
+                    newExerciseRight.name.append(ESide.right.rawValue)
+                    newExerciseLeft.name.append(ESide.left.rawValue)
+                    newExerciseLeft.side = .left
+                    exercises.append(newExerciseRight)
+                    exercises.append(newExerciseLeft)
                 } else {
-                    if draft.singleSide {
-                        let newExercise = Exercise(
-                            name: draft.name.capitalized, 
-                            movementType: draft.movementType, 
-                            muscle: draft.muscle,
-                            side: draft.side,
-                            draftId: draft.id
-                        )
-                        exercises.append(newExercise)
-                    } else {
-                        let newExercise = Exercise(
-                            name: draft.name.capitalized, 
-                            movementType: draft.movementType, 
-                            muscle: draft.muscle,
-                            draftId: draft.id
-                        )
-                        exercises.append(newExercise)
+                    if (draft.sideType == .singleFocus) {
+                        newExercise.side = draft.sideFocus
+                        newExercise.name.append(draft.sideFocus?.rawValue ?? "you forgot to add sidefocus you dumb fuck")
                     }
-                    
-                    
+                    exercises.append(newExercise)
                 }
             }
             i+=1
@@ -120,11 +105,6 @@ struct WorkoutView: View {
                         }) {
                             Image(systemName: "minus.circle")
                                 .font(.largeTitle)
-//                            Text("-")
-//                                .font(.largeTitle)
-//                                .padding()
-//                                .background(Color.gray.opacity(0.2))
-//                                .clipShape(Circle())
                         }
                         
                 
@@ -138,11 +118,6 @@ struct WorkoutView: View {
                         }) {
                             Image(systemName: "plus.circle")
                                 .font(.largeTitle)
-//                            Text("+")
-//                                .font(.largeTitle)
-//                                .padding()
-//                                .background(Color.gray.opacity(0.2))
-//                                .clipShape(Circle())
                         }
                     }
                     .padding()
@@ -156,31 +131,18 @@ struct WorkoutView: View {
                     flag = false
                     if let selectedExercise = allExercises[randomPriority!]?.randomElement() {
                         newExercise = selectedExercise
-                    } else {
-                        newExercise=Exercise(name: "fucking error mate")
-                    }
-                    if (newExercise.name == prevExercise.name) {
+                    } 
+                    if (newExercise.id == prevExercise.id) {
                         flag = true
                         continue
                     }
-                    if (newExercise.movementType != nil && prevExercise.movementType  != nil) {
-                        if (newExercise.movementType == prevExercise.movementType) {
-                            flag = true
-                            continue
-                        }
+                    
+                    if (newExercise.bodyPart == prevExercise.bodyPart && newExercise.side == prevExercise.side) {
+                        flag = true
+                        continue
+                        
                     }
-                    if (newExercise.side != nil && prevExercise.side  != nil) {
-                        if (newExercise.side == prevExercise.side) {
-                            flag = true
-                            continue
-                        }
-                    }
-                    if (newExercise.muscle != nil && prevExercise.muscle  != nil) {
-                        if (newExercise.muscle == prevExercise.muscle) {
-                            flag = true
-                            continue
-                        }
-                    }
+                    
                 } while (
                     flag == true
                 ) 
@@ -218,9 +180,9 @@ struct WorkoutView: View {
             
             
             allExercises = setUpExercises(
-                p1: legsExercises.dLegsI + absExercises.dAbsI + armsAbdExercises.dArmsAbdI + armsAddExercises.dArmsAddI, 
-                p2: legsExercises.dLegsII + absExercises.dAbsII + armsAbdExercises.dArmsAbdII + armsAddExercises.dArmsAddII, 
-                p3: legsExercises.dLegsIII + absExercises.dAbsIII + armsAbdExercises.dArmsAbdIII + armsAddExercises.dArmsAddIII
+                p1: legsExercises.legsDraftsI + absExercises.absDraftsI + armsExtExercises.armsExtDraftsI + armsFlexExercises.armsFlexDraftsI, 
+                p2: legsExercises.legsDraftsII + absExercises.absDraftsII + armsExtExercises.armsExtDraftsII + armsFlexExercises.armsFlexDraftsII, 
+                p3: legsExercises.legsDraftsIII + absExercises.absDraftsIII + armsExtExercises.armsExtDraftsIII + armsFlexExercises.armsFlexDraftsIII
             )
             
 //            allExercises = setUpExercises(

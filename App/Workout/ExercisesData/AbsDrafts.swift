@@ -4,7 +4,7 @@ class AbsDrafts: ObservableObject {
 //    IMPROVE is there a way to make it so declaring body part here is not necessary
     @Published var absDraftsI = [
         ExerciseDraft(name: "horizontal abs", bodyPart: .abs, muscle: .abs),
-        ExerciseDraft(name: "lateral abs", bodyPart: .abs, muscle: .abs, sideSplit: true), 
+        ExerciseDraft(name: "lateral abs", bodyPart: .abs, muscle: .abs, sideType: .split), 
     ]
     
     @Published var absDraftsII = [

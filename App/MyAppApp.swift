@@ -2,18 +2,18 @@ import SwiftUI
 
 @main
 struct MyAppApp: App {
-    @StateObject var legsExercisesData = LegsExercisesData()
-    @StateObject var absExercisesData = AbsExercisesData()
-    @StateObject var armsAbdExercisesData = ArmsAbdExercisesData()
-    @StateObject var armsAddExercisesData = ArmsAddExercisesData()
+    @StateObject var legsDrafts = LegsDrafts()
+    @StateObject var absDrafts = AbsDrafts()
+    @StateObject var armsExtDrafts = ArmsExtDrafts()
+    @StateObject var armsFlexDrafts = ArmsFlexDrafts()
     @StateObject var debugExercisesData = DebugExercisesData()
     var body: some Scene {
         WindowGroup {
             ContentView()
-            .environmentObject(legsExercisesData)
-            .environmentObject(absExercisesData)
-            .environmentObject(armsAbdExercisesData)
-            .environmentObject(armsAddExercisesData)
+            .environmentObject(legsDrafts)
+            .environmentObject(absDrafts)
+            .environmentObject(armsExtDrafts)
+            .environmentObject(armsFlexDrafts)
             .environmentObject(debugExercisesData)
         }
         

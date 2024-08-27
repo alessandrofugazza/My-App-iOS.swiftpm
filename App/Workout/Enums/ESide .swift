@@ -1,7 +1,7 @@
 import Foundation
 
-enum ESide {
-    case left
-    case right
+enum ESide : String {
+    case left = " (L)"
+    case right = " (R)"
 }
 

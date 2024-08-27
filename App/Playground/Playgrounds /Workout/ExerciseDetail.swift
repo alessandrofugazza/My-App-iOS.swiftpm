@@ -5,6 +5,7 @@ struct ExerciseDetail: View {
     
     var body: some View {
         VStack {
+            
             Text(exercise.name.capitalized)
             Text(exercise.movementType?.rawValue ?? "No movement type")
                 .foregroundColor((exercise.movementType != nil) ? .primary : .secondary)
@@ -13,11 +14,13 @@ struct ExerciseDetail: View {
                 .foregroundColor((exercise.muscle != nil) ? .primary : .secondary)
                 .opacity((exercise.muscle != nil) ? 1.0 : 0.5)
             Text("SSp")
-                .foregroundColor(exercise.sideSplit ? .primary : .secondary)
-                .opacity(exercise.sideSplit ? 1.0 : 0.5)
+                .foregroundColor(exercise.sideType == .split ? .primary : .secondary)
+                .opacity(exercise.sideType == .split ? 1.0 : 0.5)
             Text("SSi")
-                .foregroundColor(exercise.singleSide ? .primary : .secondary)
-                .opacity(exercise.singleSide ? 1.0 : 0.5)
+                .foregroundColor(exercise.sideType == .singleFocus ? .primary : .secondary)
+                .opacity(exercise.sideType == .singleFocus ? 1.0 : 0.5)
+             
+        
         }
         .padding()
     }
@@ -25,7 +28,7 @@ struct ExerciseDetail: View {
 
 struct ExerciseDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseDetail(exercise: ExerciseDraft(name: "biceps dumbbell", muscle: .bicep, sideSplit: true))
+        ExerciseDetail(exercise: ExerciseDraft(name: "biceps dumbbell", bodyPart: .arm, muscle: .bicep, sideType: .split))
     }
 }
 
