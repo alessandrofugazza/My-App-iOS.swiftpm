@@ -2,11 +2,13 @@ import Foundation
 
 struct ExerciseDraft : Identifiable {
     var name : String
+    var bodyPart : EDraftBodyPart
     var movementType : EMovementType?
     var muscle : EMuscle?
     var singleSide : Bool = false
     var side : ESide?
     var sideSplit : Bool = false
+    
     var id : String {
         let key = "uuid_\(name)"
         if let savedUUID = UserDefaults.standard.string(forKey : key) {
@@ -25,6 +27,7 @@ struct Exercise : Identifiable {
     var movementType : EMovementType?
     var muscle : EMuscle?
     var side : ESide?
+    var bodyPart : EBodyPart
     var draftId : String = ""
     
     var id = UUID()

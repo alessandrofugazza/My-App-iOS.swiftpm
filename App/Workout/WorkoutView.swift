@@ -10,8 +10,8 @@ struct WorkoutView: View {
     
     @State var prioritiesPool: [EPriority] = []
     
-    @State var newExercise: Exercise = Exercise(name: "")
-    @State var prevExercise: Exercise = Exercise(name: "")
+    @State var newExercise: Exercise
+    @State var prevExercise: Exercise
     @State var scale: CGFloat = 1.0
     @State var allExercises: [EPriority: [Exercise]] = [:]
     @State var flag = false
