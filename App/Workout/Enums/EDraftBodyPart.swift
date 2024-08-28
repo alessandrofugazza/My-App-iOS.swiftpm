@@ -1,4 +1,4 @@
-enum EDraftBodyPart {
+enum EDraftBodyPart : CaseIterable {
     case armsExt
     case armsFlex
     case abs

@@ -30,41 +30,55 @@ struct WorkoutView: View {
     }
     
     
-    private func setUpExercises(p1: [ExerciseDraft], p2: [ExerciseDraft], p3: [ExerciseDraft]) -> [EPriority: [Exercise]] {
+    private func setUpExercises() -> [EPriority: [Exercise]] {
         var exercisesDict: [EPriority: [Exercise]] = [:]
-        let allExercisesDrafts = [p1, p2, p3]
+
         
-        var i = 0
         for priority in EPriority.allCases {
             var exercises: [Exercise] = []
-//            REFACTOR this fucking shit
-            for draft in allExercisesDrafts[i] {
-                var newExercise = Exercise(
-                    name: draft.name.capitalized,
-                    bodyPart: draft.bodyPart,
-                    movementType: draft.movementType, 
-                    muscle: draft.muscle,
-                    draftId: draft.id
-                )
-                if draft.sideType == .split {
-                    var newExerciseRight = newExercise
-                    var newExerciseLeft = newExercise
-                    newExerciseRight.side = .right
-                    newExerciseRight.name.append(ESide.right.rawValue)
-                    newExerciseLeft.name.append(ESide.left.rawValue)
-                    newExerciseLeft.side = .left
-                    exercises.append(newExerciseRight)
-                    exercises.append(newExerciseLeft)
-                } else {
-                    if (draft.sideType == .singleFocus) {
-                        newExercise.side = draft.sideFocus
-                        newExercise.name.append(draft.sideFocus?.rawValue ?? "you forgot to add sidefocus you dumb fuck")
+            for draftBodyPart in EDraftBodyPart.allCases {
+            //            REFACTOR this fucking shit
+//                CHECK THIS SYNTAX IS FUCKING STUPID
+                if let draftsForPriority = exerciseDrafts.exerciseDrafts[draftBodyPart]?[priority] {
+                    for draft in draftsForPriority {
+                        var bodyPart : EBodyPart
+                        switch (draftBodyPart) {
+                        case .abs:
+                            bodyPart = .abs
+                        case .armsExt:
+                            bodyPart = .arm
+                        case .armsFlex:
+                            bodyPart = .arm
+                        case .legs:
+                            bodyPart = .leg
+                        }
+                        var newExercise = Exercise(
+                            name: draft.name.capitalized,
+                            bodyPart: bodyPart,
+                            movementType: draft.movementType, 
+                            muscle: draft.muscle,
+                            draftId: draft.id
+                        )
+                        if draft.sideType == .split {
+                            var newExerciseRight = newExercise
+                            var newExerciseLeft = newExercise
+                            newExerciseRight.side = .right
+                            newExerciseRight.name.append(ESide.right.rawValue)
+                            newExerciseLeft.name.append(ESide.left.rawValue)
+                            newExerciseLeft.side = .left
+                            exercises.append(newExerciseRight)
+                            exercises.append(newExerciseLeft)
+                        } else {
+                            if (draft.sideType == .singleFocus) {
+                                newExercise.side = draft.sideFocus
+                                newExercise.name.append(draft.sideFocus?.rawValue ?? "you forgot to add sidefocus you dumb fuck")
+                            }
+                            exercises.append(newExercise)
+                        }
                     }
-                    exercises.append(newExercise)
                 }
+                exercisesDict[priority] = exercises
             }
-            i+=1
-            exercisesDict[priority] = exercises
         }
         return exercisesDict
     }
@@ -212,11 +226,7 @@ struct WorkoutView: View {
             }
             
             
-            allExercises = setUpExercises(
-                p1: legsExercises.legsDraftsI + absExercises.absDraftsI + armsExtExercises.armsExtDraftsI + armsFlexExercises.armsFlexDraftsI, 
-                p2: legsExercises.legsDraftsII + absExercises.absDraftsII + armsExtExercises.armsExtDraftsII + armsFlexExercises.armsFlexDraftsII, 
-                p3: legsExercises.legsDraftsIII + absExercises.absDraftsIII + armsExtExercises.armsExtDraftsIII + armsFlexExercises.armsFlexDraftsIII
-            )
+            allExercises = setUpExercises()
             
 //            allExercises = setUpExercises(
 //                p1: 
