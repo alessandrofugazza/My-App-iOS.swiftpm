@@ -1,6 +1,7 @@
 enum EDraftBodyPart {
-    case arm
+    case armsExt
+    case armsFlex
     case abs
-    case leg
+    case legs
 }
 

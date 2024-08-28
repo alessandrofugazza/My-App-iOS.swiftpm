@@ -2,10 +2,7 @@ import SwiftUI
 
 struct WorkoutView: View {
     
-    @EnvironmentObject var legsExercises: LegsDrafts
-    @EnvironmentObject var absExercises: AbsDrafts
-    @EnvironmentObject var armsExtExercises: ArmsExtDrafts
-    @EnvironmentObject var armsFlexExercises: ArmsFlexDrafts
+    @EnvironmentObject var exerciseDrafts: ExerciseDrafts
     @EnvironmentObject var debugExercises: DebugExercisesData
     
     @State var prioritiesPool: [EPriority] = []

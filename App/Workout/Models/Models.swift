@@ -2,7 +2,6 @@ import Foundation
 
 struct ExerciseDraft : Identifiable {
     var name : String
-    var bodyPart : EBodyPart
     var movementType : EMovementType?
     var muscle : EMuscle?
     
