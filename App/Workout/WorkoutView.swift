@@ -19,15 +19,17 @@ struct WorkoutView: View {
     @State var randomPriority: EPriority? = nil
     
     @State var currentRepetitions: Int = 0
+    @State var currentWeight: Int = 0
     
-    func saveRepetitions(_ repetitions: Int, for id: String) {
-        let key = "reps_\(id)"
-        UserDefaults.standard.set(repetitions, forKey: key)
+    func saveExerciseData(repetitions: Int, weight: Int, for id: String) {
+        let key = "exercise_\(id)"
+        let exerciseData: SavedExerciseData = ["repetitions": repetitions, "weight": weight]
+        UserDefaults.standard.set(exerciseData, forKey: key)
     }
     
-    func getRepetitions(for id: String) -> Int {
-        let key = "reps_\(id)"
-        return UserDefaults.standard.integer(forKey: key)
+    func getExerciseData(for id: String) -> SavedExerciseData? {
+        let key = "exercise_\(id)"
+        return UserDefaults.standard.dictionary(forKey: key) as? SavedExerciseData
     }
     
     
@@ -101,7 +103,8 @@ struct WorkoutView: View {
                             Button(action: {
                                 if currentRepetitions > 0 {
                                     currentRepetitions -= 1
-                                    saveRepetitions(currentRepetitions, for: newExercise.draftId)
+//                                    IMPROVE avoid doing this shit
+                                    saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
                                 }
                             }) {
                                 Image(systemName: "minus.circle")
@@ -115,7 +118,32 @@ struct WorkoutView: View {
                             
                             Button(action: {
                                 currentRepetitions += 1
-                                saveRepetitions(currentRepetitions, for: newExercise.draftId)
+                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                            }) {
+                                Image(systemName: "plus.circle")
+                                    .font(.largeTitle)
+                            }
+                        }
+                        .padding()
+                        HStack {
+                            Button(action: {
+                                if currentWeight > 0 {
+                                    currentWeight -= 1
+                                    saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                                }
+                            }) {
+                                Image(systemName: "minus.circle")
+                                    .font(.largeTitle)
+                            }
+                            
+                            
+                            Text("\(currentWeight) weight")
+                                .font(.title)
+                                .padding(.horizontal)
+                            
+                            Button(action: {
+                                currentWeight += 1
+                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
                             }) {
                                 Image(systemName: "plus.circle")
                                     .font(.largeTitle)
@@ -128,6 +156,7 @@ struct WorkoutView: View {
             Divider()
                 .padding()
             Button(action: {
+                
                 repeat {
                     randomPriority = prioritiesPool.randomElement()!
                     flag = false
@@ -149,7 +178,12 @@ struct WorkoutView: View {
                     flag == true
                 ) 
                 prevExercise = newExercise
-                currentRepetitions = getRepetitions(for: newExercise.draftId)
+                
+                let currentExerciseSavedData = getExerciseData(for: newExercise.draftId)
+                
+                currentRepetitions = currentExerciseSavedData?["repetitions"] ?? 0
+                currentWeight = currentExerciseSavedData?["weight"] ?? 0
+                
                 withAnimation {
                     scale = 1.1
                 }

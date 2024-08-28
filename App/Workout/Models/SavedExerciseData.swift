@@ -1,0 +1,2 @@
+typealias SavedExerciseData = [String: Int]
+
