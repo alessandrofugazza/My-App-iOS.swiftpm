@@ -1,16 +1,16 @@
 import SwiftUI
 
-struct BodyPartsGrid: View {
+struct MuscleGroupsGrid: View {
     private static let initialColumns = 2
     @State private var selectedSymbol: Symbol?
     @State private var numColumns = initialColumns
     @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
     
     @State private var muscleGroups = [
-        WorkoutGridItemData(text: "ArmExt", color: Color.pink),
-        WorkoutGridItemData(text: "ArmFlex", color: Color.purple),
-        WorkoutGridItemData(text: "Abs", color: Color.green),
-        WorkoutGridItemData(text: "Legs", color: Color.blue),
+        WorkoutGridItem(text: EMuscleGroups.armsExt.rawValue, color: Color.pink),
+        WorkoutGridItem(text: EMuscleGroups.armsFlex.rawValue, color: Color.purple),
+        WorkoutGridItem(text: EMuscleGroups.abs.rawValue, color: Color.green),
+        WorkoutGridItem(text: EMuscleGroups.legs.rawValue, color: Color.blue),
     ]
     
     var body: some View {
@@ -49,14 +49,14 @@ struct BodyPartsGrid: View {
 //    }
 }
 
-extension BodyPartsGrid {
+extension MuscleGroupsGrid {
     var columnsText: String {
         numColumns > 1 ? "\(numColumns) Columns" : "1 Column"
     }
 }
 
-struct BodyPartsGrid_Previews : PreviewProvider {
+struct MuscleGroupsGrid_Previews : PreviewProvider {
     static var previews : some View {
-        BodyPartsGrid()
+        MuscleGroupsGrid()
     }
 }

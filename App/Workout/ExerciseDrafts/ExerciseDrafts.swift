@@ -1,7 +1,7 @@
 import Foundation
 
 class ExerciseDrafts: ObservableObject {
-    @Published var exerciseDrafts: [EDraftBodyPart: [EPriority: [ExerciseDraft]]] = [
+    @Published var exerciseDrafts: [EMuscleGroups: [EPriority: [ExerciseDraft]]] = [
         .armsExt: [
             .I: [
                 ExerciseDraft(name: "sitting triceps", muscle: .tricep, sideType: .split),
