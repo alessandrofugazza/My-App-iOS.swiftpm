@@ -9,6 +9,14 @@ struct MuscleGroupDetail: View {
             
             ForEach(EPriority.allCases) { priority in
                 Text(priority.rawValue)
+                    .font(.title)
+                if let exercises = muscleGroupExercises[priority] {
+                    List {
+                        ForEach(exercises) { exercise in
+                            Text(exercise.name)
+                        }
+                    }
+                }
             }
             
         }
