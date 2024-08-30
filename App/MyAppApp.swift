@@ -6,9 +6,12 @@ struct MyAppApp: App {
     @StateObject var debugExercisesData = DebugExercisesData()
     var body: some Scene {
         WindowGroup {
-            ContentView()
-            .environmentObject(exerciseDrafts)
-            .environmentObject(debugExercisesData)
+            NavigationStack {
+                
+                ContentView()
+                    .environmentObject(exerciseDrafts)
+                    .environmentObject(debugExercisesData)
+            }
         }
         
     }

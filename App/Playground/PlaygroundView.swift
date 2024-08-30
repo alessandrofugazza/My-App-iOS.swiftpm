@@ -5,7 +5,8 @@ struct PlaygroundView: View {
     private let NavData: [NavlinkData] = [
         NavlinkData(label: "Journal", view: AnyView(PGJournalView())),
         NavlinkData(label: "Random from array", view: AnyView(PGRandomFromArrayView())),
-        NavlinkData(label: "Grid", view: AnyView(PGGridView()))
+        NavlinkData(label: "Grid", view: AnyView(PGGridView())),
+        NavlinkData(label: "ExerciseList", view: AnyView(MuscleGroupsGrid()))
     ]
     
     var body: some View {
@@ -17,9 +18,13 @@ struct PlaygroundView: View {
                     .font(.caption)
                 List {
                     ForEach(NavData) { navEntry in
-                        NavigationLink(destination: navEntry.view) {
+                        NavigationLink(destination: navEntry.view
+                            .applyNavigationTitleStyle(title: navEntry.label)
+                        ) {
                             Text(navEntry.label)
                         }
+                        
+                    
                     }
                 }
             }
