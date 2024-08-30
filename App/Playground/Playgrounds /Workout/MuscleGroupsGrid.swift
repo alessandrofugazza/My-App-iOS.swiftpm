@@ -16,16 +16,24 @@ struct MuscleGroupsGrid: View {
     ]
     
     var body: some View {
-        VStack {
-
+        NavigationStack {
             
-            ScrollView {
-                LazyVGrid(columns: gridColumns) {
-                    ForEach(muscleGroups) { muscleGroup in
-                        if let muscleGroupExercises = exerciseDrafts.exerciseDrafts[muscleGroup.muscleGroup] {
+            
+            VStack {
+                
+                
+                ScrollView {
+                    LazyVGrid(columns: gridColumns) {
+                        ForEach(muscleGroups) { muscleGroup in
+                            
                             NavigationLink {
-                                
-                                MuscleGroupDetail(muscleGroupExercises: muscleGroupExercises)
+                                if let muscleGroupExercises = exerciseDrafts.exerciseDrafts[muscleGroup.muscleGroup] {
+                                    
+                                    
+                                    MuscleGroupDetail(muscleGroupExercises: muscleGroupExercises )
+                                } else {
+                                    Text("fuck")
+                                }
                                 
                             } label: {
                                 ZStack {
@@ -39,9 +47,10 @@ struct MuscleGroupsGrid: View {
                                 }
                                 .padding()
                             }
+                            
+                            
+                            
                         }
-
-                        
                     }
                 }
             }
@@ -72,5 +81,6 @@ extension MuscleGroupsGrid {
 struct MuscleGroupsGrid_Previews : PreviewProvider {
     static var previews : some View {
         MuscleGroupsGrid()
+            .environmentObject(ExerciseDrafts())
     }
 }

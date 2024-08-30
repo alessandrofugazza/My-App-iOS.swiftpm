@@ -6,7 +6,7 @@ struct PlaygroundView: View {
         NavlinkData(label: "Journal", view: AnyView(PGJournalView())),
         NavlinkData(label: "Random from array", view: AnyView(PGRandomFromArrayView())),
         NavlinkData(label: "Grid", view: AnyView(PGGridView())),
-        NavlinkData(label: "ExerciseList", view: AnyView(MuscleGroupsGrid()))
+        NavlinkData(label: "ExerciseGrid", view: AnyView(MuscleGroupsGrid()))
     ]
     
     var body: some View {
@@ -20,6 +20,7 @@ struct PlaygroundView: View {
                     ForEach(NavData) { navEntry in
                         NavigationLink(destination: navEntry.view
                             .applyNavigationTitleStyle(title: navEntry.label)
+                            .environmentObject(ExerciseDrafts()) // IMPROVE this is bullshit why do i need to do this
                         ) {
                             Text(navEntry.label)
                         }
@@ -35,6 +36,6 @@ struct PlaygroundView: View {
 
 struct PlaygroundView_Previews: PreviewProvider {
     static var previews: some View {
-        PlaygroundView()
+        PlaygroundView().environmentObject(ExerciseDrafts())
     }
 }
