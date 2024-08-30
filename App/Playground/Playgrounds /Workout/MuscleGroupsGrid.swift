@@ -1,33 +1,47 @@
 import SwiftUI
 
 struct MuscleGroupsGrid: View {
+    @EnvironmentObject var exerciseDrafts: ExerciseDrafts
+    
     private static let initialColumns = 2
     @State private var selectedSymbol: Symbol?
     @State private var numColumns = initialColumns
     @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
     
     @State private var muscleGroups = [
-        WorkoutGridItem(text: EMuscleGroups.armsExt.rawValue, color: Color.pink),
-        WorkoutGridItem(text: EMuscleGroups.armsFlex.rawValue, color: Color.purple),
-        WorkoutGridItem(text: EMuscleGroups.abs.rawValue, color: Color.green),
-        WorkoutGridItem(text: EMuscleGroups.legs.rawValue, color: Color.blue),
+        WorkoutGridItem(muscleGroup: .armsExt, color: .pink),
+        WorkoutGridItem(muscleGroup: .armsFlex, color: .purple),
+        WorkoutGridItem(muscleGroup: .abs, color: .green),
+        WorkoutGridItem(muscleGroup: .legs, color: .blue),
     ]
     
     var body: some View {
         VStack {
+
+            
             ScrollView {
                 LazyVGrid(columns: gridColumns) {
                     ForEach(muscleGroups) { muscleGroup in
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(muscleGroup.color)
-                                .aspectRatio(1.0, contentMode: .fit)
-                            
-                            Text(muscleGroup.text)
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                        if let muscleGroupExercises = exerciseDrafts.exerciseDrafts[muscleGroup.muscleGroup] {
+                            NavigationLink {
+                                
+                                MuscleGroupDetail(muscleGroupExercises: muscleGroupExercises)
+                                
+                            } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(muscleGroup.color)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                    
+                                    Text(muscleGroup.muscleGroup.rawValue)
+                                        .font(.largeTitle)
+                                        .foregroundColor(.white)
+                                }
+                                .padding()
+                            }
                         }
-                        .padding()
+
+                        
                     }
                 }
             }

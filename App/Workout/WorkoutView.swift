@@ -36,7 +36,7 @@ struct WorkoutView: View {
         
         for priority in EPriority.allCases {
             var exercises: [Exercise] = []
-            for draftBodyPart in EMuscleGroups.allCases {
+            for draftBodyPart in EMuscleGroup.allCases {
             //            REFACTOR this fucking shit
 //                CHECK THIS SYNTAX IS FUCKING STUPID
                 if let draftsForPriority = exerciseDrafts.exerciseDrafts[draftBodyPart]?[priority] {

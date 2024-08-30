@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WorkoutGridItem: Identifiable {
     var id = UUID()
-    var text: String
+    var muscleGroup: EMuscleGroup
     var color: Color
 }
 
