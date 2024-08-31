@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MuscleGroupDetail: View {
-
+    @State private var isAddingExercise = false
     var muscleGroupExercises: [EPriority: [ExerciseDraft]]
     
     var body: some View {
@@ -19,6 +19,15 @@ struct MuscleGroupDetail: View {
                 }
             }
             
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    isAddingExercise = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
         }
     }
 }

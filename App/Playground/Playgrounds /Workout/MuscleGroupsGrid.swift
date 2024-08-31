@@ -31,6 +31,7 @@ struct MuscleGroupsGrid: View {
                                     
                                     
                                     MuscleGroupDetail(muscleGroupExercises: muscleGroupExercises )
+                                        .applyNavigationTitleStyle(title: muscleGroup.muscleGroup.rawValue)
                                 } else {
                                     Text("fuck")
                                 }
