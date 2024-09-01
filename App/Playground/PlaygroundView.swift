@@ -6,7 +6,8 @@ struct PlaygroundView: View {
         NavlinkData(label: "Journal", view: AnyView(PGJournalView())),
         NavlinkData(label: "Random from array", view: AnyView(PGRandomFromArrayView())),
         NavlinkData(label: "Grid", view: AnyView(PGGridView())),
-        NavlinkData(label: "ExerciseGrid", view: AnyView(MuscleGroupsGrid()))
+        NavlinkData(label: "ExerciseGrid", view: AnyView(MuscleGroupsGrid())),
+        NavlinkData(label: "Quotes", view: AnyView(PGQuotes())),
     ]
     
     var body: some View {

@@ -29,6 +29,9 @@ struct MuscleGroupDetail: View {
                 }
             }
         }
+//        .sheet(isPresented: $isAddingExercise, onDismiss: addExercise) {
+//            SymbolPicker(symbol: $selectedSymbol)
+//        }
     }
 }
 
