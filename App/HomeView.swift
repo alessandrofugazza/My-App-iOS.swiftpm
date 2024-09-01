@@ -10,12 +10,17 @@ struct HomeView: View {
         "Were it so easy."
     ]
     
+    var shortTodos = [
+        "Bookmarks sort",
+        "eToro price alerts"
+    ]
+    
     @State private var quote = ""
+    @State private var shortTodo = ""
 
     var body: some View {
         VStack {
-            Group {
-                
+            Group {                
                 Image("MachineLifeformHead")
                     .resizable()
                     .scaledToFit()
@@ -26,16 +31,14 @@ struct HomeView: View {
                     )
                     .padding(.bottom)
             }
-            Group {
-                
+            Group {                
                 Text("My App")
                     .font(.largeTitle)
                 Text("v1.0.0")
                     .font(.caption)
                     .padding(.bottom)
             }
-            Group {
-                
+            Group {                
                 Text("こんにちは")
                     .font(.title)
                 Text("元気ですか")
@@ -57,9 +60,25 @@ struct HomeView: View {
                 }
                 .buttonStyle(PlainButtonStyle()) 
             }
+            Group {
+                Button(action: {
+                    shortTodo = shortTodos.randomElement() ?? "No more Short Todos."
+                }) {
+                    Text(shortTodo)
+                        .italic()
+                        .padding()
+                        .background(Color.gray.opacity(0.3))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.vertical)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                }
+                .buttonStyle(PlainButtonStyle()) 
+            }
         }
         .onAppear {
             quote = allQuotes.randomElement() ?? "Read more books."
+            shortTodo = shortTodos.randomElement() ?? "No more Short Todos."
         }
         .padding()
     }
