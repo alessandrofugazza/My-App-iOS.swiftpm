@@ -1,6 +1,11 @@
 import SwiftUI
 
 struct PGQuotes : View {
+    @State private var isAddingQuote = false
+    @State private var selectedQuote: Quote?
+    @State private var isEditing = false
+
+    
     @State private var quotes = [
         Quote(text: "You know, hope is a mistake. If you can't fix what's broken… you'll go insane."),
         Quote(text: "コノママジャダメ"),
@@ -20,10 +25,57 @@ struct PGQuotes : View {
                         } label: {
                             Text(quote.text)
                         }
+                        .overlay(alignment: .topTrailing) {
+                            if isEditing {
+                                Button {
+                                    remove(quote: quote)
+                                } label: {
+                                    Image(systemName: "xmark.square.fill")
+                                        .font(.title)
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(.white, Color.red)
+                                }
+                            }
+                        }
                         
                     }
                 
             }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    isAddingQuote = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(isEditing ? "Done" : "Edit") {
+                    withAnimation {
+                        isEditing.toggle()
+                    }
+                }
+            }
+
+        }
+        .sheet(isPresented: $isAddingQuote, onDismiss: addQuote) {
+            QuotePicker(quote: $selectedQuote)
+        }
+        
+    }
+    
+    func addQuote() {
+        guard let name = selectedQuote else { return }
+        withAnimation {
+            quotes.insert(name, at: 0)
+        }
+    }
+    
+    func remove(quote: Quote) {
+        guard let index = quotes.firstIndex(of: quote) else { return }
+        withAnimation {
+            _ = quotes.remove(at: index)
         }
     }
 }

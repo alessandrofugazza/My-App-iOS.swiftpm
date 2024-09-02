@@ -7,12 +7,15 @@ struct HomeView: View {
         "The man who seeks excuses for his actions is doomed to fail.",
         "Their gross misconduct almost cost us our home, but has given us a renewed sense of purpose and tempered in the fires of adversity, our will is forged anew.",
         "Fear is born of uncertainty; we fear nothing because our purpose is clear and our path is certain.",
-        "Were it so easy."
+        "Were it so easy.",
+        "Wir sind von vornherein unlogische und daher ungerechte Wesen, und können diess erkennen: diess ist eine der grössten und unauflösbarsten Disharmonien des Daseins.",
     ]
     
     var shortTodos = [
         "Bookmarks sort",
-        "eToro price alerts"
+        "eToro price alerts",
+        "Reminders sort",
+        "Spotify sort",
     ]
     
     @State private var quote = ""

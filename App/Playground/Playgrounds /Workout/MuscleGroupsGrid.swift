@@ -7,6 +7,7 @@ struct MuscleGroupsGrid: View {
     @State private var selectedSymbol: Symbol?
     @State private var numColumns = initialColumns
     @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
+    @State private var isEditing = false
     
     @State private var muscleGroups = [
         WorkoutGridItem(muscleGroup: .armsExt, color: .pink),
@@ -20,7 +21,13 @@ struct MuscleGroupsGrid: View {
             
             
             VStack {
-                
+                if isEditing {
+                    Stepper(columnsText, value: $numColumns, in: 1...6, step: 1) { _ in
+                        withAnimation { gridColumns = Array(repeating: GridItem(.flexible()), count: numColumns) }
+                    }
+                    .padding()
+                }
+
                 
                 ScrollView {
                     LazyVGrid(columns: gridColumns) {
@@ -51,6 +58,15 @@ struct MuscleGroupsGrid: View {
                             
                             
                             
+                        }
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(isEditing ? "Done" : "Edit") {
+                        withAnimation {
+                            isEditing.toggle()
                         }
                     }
                 }
