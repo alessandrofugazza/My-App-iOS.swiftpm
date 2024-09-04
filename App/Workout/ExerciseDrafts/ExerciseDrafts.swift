@@ -8,11 +8,14 @@ class ExerciseDrafts: ObservableObject {
                 ExerciseDraft(name: "push-ups", movementType: .pushup),
                 ExerciseDraft(name: "lateral deltoid", muscle: .deltoid, sideType: .split),
                 ExerciseDraft(name: "reverse wrist curl", muscle: .forearmAbd, sideType: .singleFocus, sideFocus: .left),
+                ExerciseDraft(name: "dumbbell shrug", muscle: .trapezoid, sideType: .split),
+                ExerciseDraft(name: "wing", muscle: .trapezoid, sideType: .split)
             ],
             .II: [
                 ExerciseDraft(name: "overhead raise", movementType: .pushup, sideType: .split),
                 ExerciseDraft(name: "back push-ups", movementType: .pushup),
                 ExerciseDraft(name: "frontal deltoid", muscle: .deltoid, sideType: .split),
+                ExerciseDraft(name: "bench press", movementType: .pushup, muscle: .tricep),
             ],
             .III: [
                 ExerciseDraft(name: "laying triceps", muscle: .tricep, sideType: .split),
@@ -20,12 +23,13 @@ class ExerciseDrafts: ObservableObject {
                 ExerciseDraft(name: "inclined push-ups", movementType: .pushup),
                 ExerciseDraft(name: "reclined push-ups", movementType: .pushup),
                 ExerciseDraft(name: "laying barbell triceps", muscle: .tricep),
+                ExerciseDraft(name: "barbell shrug", muscle: .trapezoid),
             ]
         ],
         .armsFlex: [
             .I: [
                 ExerciseDraft(name: "biceps dumbbell", muscle: .bicep, sideType: .split),
-                ExerciseDraft(name: "traction", movementType: .traction, sideType: .split),
+                ExerciseDraft(name: "barbell traction", movementType: .traction, sideType: .split),
                 ExerciseDraft(name: "wrist curl", muscle: .forearmAdd, sideType: .singleFocus, sideFocus: .left),
             ],
             .II: [
@@ -37,9 +41,11 @@ class ExerciseDrafts: ObservableObject {
                 ExerciseDraft(name: "external biceps dumbbell", muscle: .bicep, sideType: .split),
                 ExerciseDraft(name: "hammer biceps dumbbell", muscle: .bicep, sideType: .split),
                 ExerciseDraft(name: "biceps barbell", muscle: .bicep),
+                ExerciseDraft(name: "reverse biceps barbell", muscle: .bicep),
                 ExerciseDraft(name: "bucket raise", movementType: .traction, sideType: .split),
                 ExerciseDraft(name: "vertical pecs", muscle: .pectoral, sideType: .split),
-                ExerciseDraft(name: "barbell biceps", muscle: .bicep)
+                ExerciseDraft(name: "barbell biceps", muscle: .bicep),
+                ExerciseDraft(name: "transversal barbell traction", movementType: .traction, sideType: .split),
             ]
         ],
         .abs: [

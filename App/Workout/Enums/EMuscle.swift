@@ -11,5 +11,6 @@ enum EMuscle: String {
     case bicep = "Bicep"
     case forearmAdd = "Forearm Adductor"
     case pectoral = "Pectoral"
+    case trapezoid = "Trapezoid"
 }
 
