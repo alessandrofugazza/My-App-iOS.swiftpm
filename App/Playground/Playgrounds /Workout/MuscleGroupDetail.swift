@@ -51,13 +51,6 @@ struct MuscleGroupDetail_Previews: PreviewProvider {
                         ExerciseDraft(name: "back push-ups", movementType: .pushup),
                         ExerciseDraft(name: "frontal deltoid", muscle: .deltoid, sideType: .split),
                     ],
-                    .III: [
-                        ExerciseDraft(name: "laying triceps", muscle: .tricep, sideType: .split),
-                        ExerciseDraft(name: "overhead hammer raise", movementType: .pushup, sideType: .split),
-                        ExerciseDraft(name: "inclined push-ups", movementType: .pushup),
-                        ExerciseDraft(name: "reclined push-ups", movementType: .pushup),
-                        ExerciseDraft(name: "laying barbell triceps", muscle: .tricep),
-                    ]
                 ]
         )
     }

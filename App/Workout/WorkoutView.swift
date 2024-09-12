@@ -174,10 +174,6 @@ struct WorkoutView: View {
                     if let selectedExercise = allExercises[randomPriority!]?.randomElement() {
                         newExercise = selectedExercise
                     } 
-                    if (newExercise.id == prevExercise.id) {
-                        flag = true
-                        continue
-                    }
                     
                     if (newExercise.bodyPart == prevExercise.bodyPart && newExercise.side == prevExercise.side) {
                         flag = true
@@ -217,7 +213,7 @@ struct WorkoutView: View {
             .scaleEffect(scale)
         }
         .onAppear {
-            var i = 4
+            var i = 2
             for priority in EPriority.allCases {
                 for _ in 1...i {
                     prioritiesPool.append(priority)

@@ -12,10 +12,9 @@ struct HomeView: View {
     ]
     
     var shortTodos = [
-        "Bookmarks sort",
-        "eToro price alerts",
-        "Reminders sort",
-        "Spotify sort",
+        "Sorting",
+        "eToro",
+        "Spotify",
     ]
     
     @State private var quote = ""

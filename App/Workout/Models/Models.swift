@@ -2,9 +2,7 @@ import Foundation
 
 struct ExerciseDraft : Identifiable {
     var name : String
-    var movementType : EMovementType?
     var muscle : EMuscle?
-    
     var sideType : ESideType = .both
     var sideFocus : ESide?
     
@@ -23,8 +21,6 @@ struct ExerciseDraft : Identifiable {
 
 struct Exercise : Identifiable {
     var name : String = ""
-    var bodyPart : EBodyPart = .notSet
-    var movementType : EMovementType?
     var muscle : EMuscle?
     var side : ESide?
     var draftId : String = ""

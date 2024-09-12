@@ -34,9 +34,6 @@ struct MindSourcesView: View {
             "Body Language",
             "Anthropology",
             "Psychology",
-            "Genetics",
-            "Evolutionary Biology",
-            "Philosophy",
         ]
         
         let sources = Sources(data: sourcesData)

@@ -36,6 +36,8 @@ struct PracticalSourcesView: View {
             "Device Monitor",
             "Working Copy",
             "AdGuard",
+            "Patente di Guida",
+            "SH 125",
             "Swift Playgrounds",
             
         ]
