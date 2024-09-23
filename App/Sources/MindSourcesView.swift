@@ -32,7 +32,6 @@ struct MindSourcesView: View {
             "Diagnostics",
             "Anatomy",
             "Body Language",
-            "Anthropology",
             "Psychology",
         ]
         

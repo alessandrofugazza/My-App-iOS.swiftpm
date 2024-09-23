@@ -40,17 +40,7 @@ struct MuscleGroupDetail_Previews: PreviewProvider {
         MuscleGroupDetail(
             muscleGroupExercises: 
                 [
-                    .I: [
-                        ExerciseDraft(name: "sitting triceps", muscle: .tricep, sideType: .split),
-                        ExerciseDraft(name: "push-ups", movementType: .pushup),
-                        ExerciseDraft(name: "lateral deltoid", muscle: .deltoid, sideType: .split),
-                        ExerciseDraft(name: "reverse wrist curl", muscle: .forearmAbd, sideType: .singleFocus, sideFocus: .left),
-                    ],
-                    .II: [
-                        ExerciseDraft(name: "overhead raise", movementType: .pushup, sideType: .split),
-                        ExerciseDraft(name: "back push-ups", movementType: .pushup),
-                        ExerciseDraft(name: "frontal deltoid", muscle: .deltoid, sideType: .split),
-                    ],
+                    :
                 ]
         )
     }

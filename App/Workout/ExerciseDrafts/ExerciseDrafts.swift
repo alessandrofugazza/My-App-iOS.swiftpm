@@ -1,54 +1,46 @@
 import Foundation
 
 class ExerciseDrafts: ObservableObject {
-    @Published var exerciseDrafts: [EMuscle: [EPriority: [ExerciseDraft]]] = [
-        .armsExt: [
-            .I: [
-                ExerciseDraft(name: "push-ups", movementType: .pushup),
-                ExerciseDraft(name: "back push-ups", movementType: .pushup),
+    @Published var exerciseDrafts: [EPriority: [EMechanic: [ExerciseDraft]]] = [
+        .I: [
+            .isolation: [
+                ExerciseDraft(name: "dumbbell curl", muscles: [.high: [.biceps]]),
+                ExerciseDraft(name: "dumbbell wrist curl", muscles: [.high: [.forearms]], sideFocus: .left),
+                ExerciseDraft(name: "barbell calf raises", muscles: [.high: [.calves]]),
+                ExerciseDraft(name: "dumbbell skullcrusher", muscles: [.high: [.triceps]]),
+                ExerciseDraft(name: "machine hamstring curl", muscles: [.high: [.hamstrings]]),
+                ExerciseDraft(name: "dumbbell lateral raise", muscles: [.high: [.lateralShoulder]]),
+                ExerciseDraft(name: "leg raises", muscles: [.high: [.abdominals]]),
             ],
-            .II: [
-                ExerciseDraft(name: "sitting triceps", muscle: .tricep, sideType: .split),
-                ExerciseDraft(name: "lateral deltoid", muscle: .deltoid, sideType: .split),
-                ExerciseDraft(name: "reverse wrist curl", muscle: .forearmAbd, sideType: .singleFocus, sideFocus: .left),
-                ExerciseDraft(name: "overhead raise", movementType: .pushup, sideType: .split),
+            .compound: [
+                ExerciseDraft(name: "barbell squat", muscles: [.high: [.quads], .medium: [.glutes], .low: [.lowerBack]]),
+                ExerciseDraft(name: "barbell deadlift", muscles: [.high: [.trapsMiddle, .lowerBack], .medium: [.glutes]]),
+                ExerciseDraft(name: "chin ups", muscles: [.high: [.lats], .medium: [.biceps], .low: [.forearms]]),
+                ExerciseDraft(name: "push up", muscles: [.high: [.chest], .medium: [.triceps]]),
+                ExerciseDraft(name: "parallel bar dips", muscles: [.high: [.chest], .medium: [.triceps]]),
             ]
         ],
-        .armsFlex: [
-            .I: [
-                
-                ExerciseDraft(name: "barbell traction", movementType: .traction, sideType: .split),
-                ExerciseDraft(name: "pecs", muscle: .pectoral, sideType: .split),
+        .II: [
+            .isolation: [
+                ExerciseDraft(name: "barbell silverback shrug", muscles: [.high: [.traps]]),
+                ExerciseDraft(name: "oblique crunch", muscles: [.high: [.obliques]], sideType: .split),
+                ExerciseDraft(name: "dumbbell seated rear delt fly", muscles: [.high: [.rearShoulder]]),
             ],
-            .II: [
-                ExerciseDraft(name: "biceps dumbbell", muscle: .bicep, sideType: .split),
-                ExerciseDraft(name: "wrist curl", muscle: .forearmAdd, sideType: .singleFocus, sideFocus: .left),
-            ],
-            
+            .compound: [
+                ExerciseDraft(name: "barbell overhead press", muscles: [.high: [.frontShoulder], .medium: [.triceps]]),
+                ExerciseDraft(name: "barbell bench press", muscles: [.high: [.chest], .medium: [.triceps]]),
+                ExerciseDraft(name: "dumbbell row unilateral", muscles: [.high: [.lats, .trapsMiddle], .medium: [.biceps], .low: [.forearms]]),
+                ExerciseDraft(name: "barbell stiff leg deadlifts", muscles: [.high: [.glutes, .hamstrings], .medium: [.lowerBack]]),
+            ]
         ],
-        .abs: [
-            .I: [
-                ExerciseDraft(name: "horizontal abs", muscle: .abs),
-                
+        .III: [
+            .isolation: [
+                ExerciseDraft(name: "crunches", muscles: [.high: [.abdominals]]),
             ],
-            .II: [
-                ExerciseDraft(name: "lateral abs", muscle: .abs, sideType: .split), 
-            ],
-
-        ],
-        .legs: [
-            .I: [
-                
-                ExerciseDraft(name: "squat", movementType: .squat),
-                ExerciseDraft(name: "deadlift", movementType: .deadlift),
-            ],
-            .II: [
-                ExerciseDraft(name: "calf", muscle: .calf, sideType: .split),
-                ExerciseDraft(name: "hamstrings", muscle: .hamstring),
-                ExerciseDraft(name: "lateral squat", movementType: .squat, sideType: .split),
-                ExerciseDraft(name: "leg raise", muscle: .thigh, sideType: .split),
-            ],
-
+            .compound: [
+                ExerciseDraft(name: "pull ups", muscles: [.high: [.lats], .medium: [.biceps], .low: [.forearms]]),
+                ExerciseDraft(name: "broad grip pull ups", muscles: [.high: [.lats], .medium: [.biceps], .low: [.forearms]]),
+            ]
         ]
     ]
 }

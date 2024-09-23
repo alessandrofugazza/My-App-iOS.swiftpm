@@ -29,10 +29,10 @@ struct PracticalSourcesView: View {
     
     init() {
         let sourcesData: [String] = [
-            "English",
-            "Russian",
-            "Japanese",
-            "German",
+//            "English",
+//            "Russian",
+//            "Japanese",
+//            "German",
             "Device Monitor",
             "Working Copy",
             "AdGuard",

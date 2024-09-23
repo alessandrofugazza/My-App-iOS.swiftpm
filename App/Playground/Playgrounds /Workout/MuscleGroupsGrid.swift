@@ -34,15 +34,15 @@ struct MuscleGroupsGrid: View {
                         ForEach(muscleGroups) { muscleGroup in
                             
                             NavigationLink {
-                                if let muscleGroupExercises = exerciseDrafts.exerciseDrafts[muscleGroup.muscleGroup] {
-                                    
-                                    
-                                    MuscleGroupDetail(muscleGroupExercises: muscleGroupExercises )
-                                        .applyNavigationTitleStyle(title: muscleGroup.muscleGroup.rawValue)
-                                } else {
-                                    Text("fuck")
-                                }
-                                
+//                                if let muscleGroupExercises = exerciseDrafts.exerciseDrafts[muscleGroup.muscleGroup] {
+//                                    
+//                                    
+//                                    MuscleGroupDetail(muscleGroupExercises: muscleGroupExercises )
+//                                        .applyNavigationTitleStyle(title: muscleGroup.muscleGroup.rawValue)
+//                                } else {
+//                                    Text("fuck")
+//                                }
+                                Text("fuck")
                             } label: {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)

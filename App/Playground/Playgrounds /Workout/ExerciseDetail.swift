@@ -9,10 +9,7 @@ struct ExerciseDetail: View {
                 .font(.title)
             VStack {
                 
-                Text(exercise.movementType?.rawValue ?? "MT")
-                    .applyConditionalStyle(condition: exercise.movementType != nil)
-                Text(exercise.muscle?.rawValue ?? "MF")
-                    .applyConditionalStyle(condition: exercise.muscle != nil)
+                
                 Text("SS")
                     .applyConditionalStyle(condition: exercise.sideType == .split)
                 Text("SF")
@@ -27,7 +24,7 @@ struct ExerciseDetail: View {
 
 struct ExerciseDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseDetail(exercise: ExerciseDraft(name: "biceps dumbbell", muscle: .bicep, sideType: .split))
+        ExerciseDetail(exercise: ExerciseDraft(name: "biceps dumbbell", muscles: [.high: [.abdominals]], sideType: .split))
     }
 }
 

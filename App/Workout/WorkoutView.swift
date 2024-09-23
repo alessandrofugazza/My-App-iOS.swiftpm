@@ -6,15 +6,13 @@ struct WorkoutView: View {
     @EnvironmentObject var debugExercises: DebugExercisesData
     
     @State var prioritiesPool: [EPriority] = []
-    
-//    IMPROVE is there really no better way to not initialize
     @State var newExercise: Exercise = Exercise()
     @State var prevExercise: Exercise = Exercise()
     @State var scale: CGFloat = 1.0
-    @State var allExercises: [EPriority: [Exercise]] = [:]
+    @State var allExercises: [EPriority: [EMechanic: [Exercise]]] = [:]
     @State var flag = false
     @State var randomPriority: EPriority? = nil
-    
+    @State var currentMachanic: EMechanic = .compound
     @State var currentRepetitions: Int = 0
     @State var currentWeight: Int = 0
     
@@ -29,36 +27,30 @@ struct WorkoutView: View {
         return UserDefaults.standard.dictionary(forKey: key) as? SavedExerciseData
     }
     
+    func haveCommonMuscles(_ exercise1: Exercise, _ exercise2: Exercise) -> Bool {
+        let muscles1 = exercise1.muscles.values.flatMap { $0 }
+        let muscles2 = exercise2.muscles.values.flatMap { $0 }
+        
+        return !Set(muscles1).intersection(Set(muscles2)).isEmpty
+    }
     
-    private func setUpExercises() -> [EPriority: [Exercise]] {
-        var exercisesDict: [EPriority: [Exercise]] = [:]
-
+    private func setUpExercises() -> [EPriority: [EMechanic: [Exercise]]] {
+        var exercisesDict: [EPriority: [EMechanic: [Exercise]]] = [:]
         
         for priority in EPriority.allCases {
-            var exercises: [Exercise] = []
-            for draftBodyPart in EMuscleGroup.allCases {
-            //            REFACTOR this fucking shit
-//                CHECK THIS SYNTAX IS FUCKING STUPID
-                if let draftsForPriority = exerciseDrafts.exerciseDrafts[draftBodyPart]?[priority] {
+            exercisesDict[priority] = [:]
+            
+            for mechanic in EMechanic.allCases {
+                var exercises: [Exercise] = []
+                
+                if let draftsForPriority = exerciseDrafts.exerciseDrafts[priority]?[mechanic] {
                     for draft in draftsForPriority {
-                        var bodyPart : EBodyPart
-                        switch (draftBodyPart) {
-                        case .abs:
-                            bodyPart = .abs
-                        case .armsExt:
-                            bodyPart = .arm
-                        case .armsFlex:
-                            bodyPart = .arm
-                        case .legs:
-                            bodyPart = .leg
-                        }
                         var newExercise = Exercise(
                             name: draft.name.capitalized,
-                            bodyPart: bodyPart,
-                            movementType: draft.movementType, 
-                            muscle: draft.muscle,
+                            muscles: draft.muscles,
                             draftId: draft.id
                         )
+                        
                         if draft.sideType == .split {
                             var newExerciseRight = newExercise
                             var newExerciseLeft = newExercise
@@ -69,21 +61,20 @@ struct WorkoutView: View {
                             exercises.append(newExerciseRight)
                             exercises.append(newExerciseLeft)
                         } else {
-                            if (draft.sideType == .singleFocus) {
+                            if draft.sideType == .singleFocus {
                                 newExercise.side = draft.sideFocus
-                                newExercise.name.append(draft.sideFocus?.rawValue ?? "you forgot to add sidefocus you dumb fuck")
+                                newExercise.name.append(draft.sideFocus?.rawValue ?? "Missing side focus")
                             }
                             exercises.append(newExercise)
                         }
                     }
                 }
-                exercisesDict[priority] = exercises
+                exercisesDict[priority]?[mechanic] = exercises
             }
         }
+        
         return exercisesDict
     }
-    
-    
     
     var body: some View {
         VStack {
@@ -92,108 +83,115 @@ struct WorkoutView: View {
                     HStack {
                         Text(newExercise.name)
                             .font(.largeTitle)
-//                            .frame(minHeight: 200)
-                            
+                        
                         VStack {
                             if randomPriority != nil {
                                 Text(randomPriority!.rawValue)
-                            }  
-                            if let muscle = newExercise.muscle {
-                                Text(muscle.rawValue)
-                                    .animation(.default, value: newExercise.id)
-                            } 
-                            if let movementType = newExercise.movementType {
-                                Text(movementType.rawValue)
-                                    .animation(.default, value: newExercise.id)
                             }
-                        }
-                    }
-                    .animation(.default, value: newExercise.id)
-                    if (newExercise.name != "") { 
-                        HStack {
-                            Button(action: {
-                                if currentRepetitions > 0 {
-                                    currentRepetitions -= 1
-//                                    IMPROVE avoid doing this shit
-                                    saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                            
+                            ForEach([EFatigueLevel.high, EFatigueLevel.medium, EFatigueLevel.low], id: \.self) { fatigueLevel in
+                                if let muscleList = newExercise.muscles[fatigueLevel] {
+                                    VStack(alignment: .leading) {
+                                        Text(fatigueLevel.rawValue.capitalized) // Display the fatigue level (e.g., High, Medium, Low)
+                                            .font(.headline)
+                                        
+                                        ForEach(muscleList, id: \.self) { muscle in
+                                            Text(muscle.rawValue) // Display each muscle in that fatigue level
+                                                .font(.body)
+                                        }
+                                    }
                                 }
-                            }) {
-                                Image(systemName: "minus.circle")
-                                    .font(.largeTitle)
-                            }
-                            
-                            
-                            Text("\(currentRepetitions) reps")
-                                .font(.title)
-                                .padding(.horizontal)
-                            
-                            Button(action: {
-                                currentRepetitions += 1
-                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                            }) {
-                                Image(systemName: "plus.circle")
-                                    .font(.largeTitle)
-                            }
-                        }
-                        .padding()
-                        HStack {
-                            Button(action: {
-                                if currentWeight > 0 {
-                                    currentWeight -= 1
-                                    saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                                }
-                            }) {
-                                Image(systemName: "minus.circle")
-                                    .font(.largeTitle)
-                            }
-                            
-                            
-                            Text("\(currentWeight) weight")
-                                .font(.title)
-                                .padding(.horizontal)
-                            
-                            Button(action: {
-                                currentWeight += 1
-                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                            }) {
-                                Image(systemName: "plus.circle")
-                                    .font(.largeTitle)
                             }
                         }
                         .padding()
                     }
                 }
             }
-            Divider()
-                .padding()
-            Button(action: {
-                
-                repeat {
-                    randomPriority = prioritiesPool.randomElement()!
-                    flag = false
-                    if let selectedExercise = allExercises[randomPriority!]?.randomElement() {
-                        newExercise = selectedExercise
-                    } 
-                    
-                    if (newExercise.bodyPart == prevExercise.bodyPart && newExercise.side == prevExercise.side) {
-                        flag = true
-                        continue
-                        
+            
+            .animation(.default, value: newExercise.id)
+            
+            if newExercise.name != "" {
+                HStack {
+                    Button(action: {
+                        if currentRepetitions > 0 {
+                            currentRepetitions -= 1
+                            saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                        }
+                    }) {
+                        Image(systemName: "minus.circle")
+                            .font(.largeTitle)
                     }
                     
-                } while (
-                    flag == true
-                ) 
+                    Text("\(currentRepetitions) reps")
+                        .font(.title)
+                        .padding(.horizontal)
+                    
+                    Button(action: {
+                        currentRepetitions += 1
+                        saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                    }) {
+                        Image(systemName: "plus.circle")
+                            .font(.largeTitle)
+                    }
+                }
+                .padding()
+                
+                HStack {
+                    Button(action: {
+                        if currentWeight > 0 {
+                            currentWeight -= 1
+                            saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                        }
+                    }) {
+                        Image(systemName: "minus.circle")
+                            .font(.largeTitle)
+                    }
+                    
+                    Text("\(currentWeight) weight")
+                        .font(.title)
+                        .padding(.horizontal)
+                    
+                    Button(action: {
+                        currentWeight += 1
+                        saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                    }) {
+                        Image(systemName: "plus.circle")
+                            .font(.largeTitle)
+                    }
+                }
+                .padding()
+            }
+            
+            
+            Divider()
+                .padding()
+            
+            Button(action: {
+                randomPriority = prioritiesPool.randomElement()!
+                currentMachanic = currentMachanic == .compound ? .isolation : .compound
+                
+                repeat {
+                    flag = false
+                    if let selectedExercise = allExercises[randomPriority!]?[currentMachanic]!.randomElement() {
+                        newExercise = selectedExercise
+                    }
+                    
+                    if haveCommonMuscles(newExercise, prevExercise) {
+                        flag = true
+                        continue
+                    }
+                } while flag
+                
                 prevExercise = newExercise
                 
                 let currentExerciseSavedData = getExerciseData(for: newExercise.draftId)
-                
                 currentRepetitions = currentExerciseSavedData?["repetitions"] ?? 0
                 currentWeight = currentExerciseSavedData?["weight"] ?? 0
                 
                 withAnimation {
                     scale = 1.1
                 }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     withAnimation {
                         scale = 1.0
@@ -202,38 +200,28 @@ struct WorkoutView: View {
             }) {
                 Text("NEXT")
                     .bold()
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color(red: 205/255, green: 92/255, blue: 92/255))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.white, lineWidth: 2))
+                    .scaleEffect(scale)
+                
             }
-            .padding()
-            .foregroundColor(.white)
-            .background(Color(red: 205/255, green: 92/255, blue: 92/255))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.white, lineWidth: 2))
-            .scaleEffect(scale)
         }
         .onAppear {
-            var i = 2
+            var i = 4
             for priority in EPriority.allCases {
                 for _ in 1...i {
                     prioritiesPool.append(priority)
                 }
-                i/=2
+                i /= 2
             }
             
-            
             allExercises = setUpExercises()
-            
-//            allExercises = setUpExercises(
-//                p1: 
-//                    debugExercises.dDebugI, 
-//                p2: debugExercises.dDebugII, 
-//                p3: debugExercises.dDebugIII
-//            )
-            
-            
         }
-        
     }
 }
 

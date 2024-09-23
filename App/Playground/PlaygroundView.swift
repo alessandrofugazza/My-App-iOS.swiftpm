@@ -8,6 +8,9 @@ struct PlaygroundView: View {
         NavlinkData(label: "Grid", view: AnyView(PGGridView())),
         NavlinkData(label: "ExerciseGrid", view: AnyView(MuscleGroupsGrid())),
         NavlinkData(label: "Quotes", view: AnyView(PGQuotes())),
+        NavlinkData(label: "ExerciseStats", view: AnyView(ExerciseStats())),
+        NavlinkData(label: "PGInput", view: AnyView(PGInput())),
+        
     ]
     
     var body: some View {

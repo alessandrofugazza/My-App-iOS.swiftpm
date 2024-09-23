@@ -2,7 +2,7 @@ import Foundation
 
 struct ExerciseDraft : Identifiable {
     var name : String
-    var muscle : EMuscle?
+    var muscles : [EFatigueLevel: [EMuscle]]
     var sideType : ESideType = .both
     var sideFocus : ESide?
     
@@ -21,7 +21,7 @@ struct ExerciseDraft : Identifiable {
 
 struct Exercise : Identifiable {
     var name : String = ""
-    var muscle : EMuscle?
+    var muscles : [EFatigueLevel: [EMuscle]] = [:]
     var side : ESide?
     var draftId : String = ""
     
