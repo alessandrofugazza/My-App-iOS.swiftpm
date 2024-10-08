@@ -6,7 +6,7 @@ class ExerciseDrafts: ObservableObject {
             .isolation: [
                 ExerciseDraft(name: "dumbbell curl", muscles: [.high: [.biceps]]),
                 ExerciseDraft(name: "dumbbell wrist curl", muscles: [.high: [.forearms]], sideFocus: .left),
-                ExerciseDraft(name: "barbell calf raises", muscles: [.high: [.calves]]),
+                ExerciseDraft(name: "dumbbell calf raises", muscles: [.high: [.calves]], sideType: .split),
                 ExerciseDraft(name: "dumbbell skullcrusher", muscles: [.high: [.triceps]]),
                 ExerciseDraft(name: "machine hamstring curl", muscles: [.high: [.hamstrings]]),
                 ExerciseDraft(name: "dumbbell lateral raise", muscles: [.high: [.lateralShoulder]]),
@@ -22,6 +22,8 @@ class ExerciseDrafts: ObservableObject {
         ],
         .II: [
             .isolation: [
+                ExerciseDraft(name: "dumbbell wrist extension", muscles: [.high: [.forearms]], sideFocus: .left),
+                ExerciseDraft(name: "barbell calf raises", muscles: [.high: [.calves]]),
                 ExerciseDraft(name: "barbell silverback shrug", muscles: [.high: [.traps]]),
                 ExerciseDraft(name: "oblique crunch", muscles: [.high: [.obliques]], sideType: .split),
                 ExerciseDraft(name: "dumbbell seated rear delt fly", muscles: [.high: [.rearShoulder]]),
@@ -29,13 +31,17 @@ class ExerciseDrafts: ObservableObject {
             .compound: [
                 ExerciseDraft(name: "barbell overhead press", muscles: [.high: [.frontShoulder], .medium: [.triceps]]),
                 ExerciseDraft(name: "barbell bench press", muscles: [.high: [.chest], .medium: [.triceps]]),
-                ExerciseDraft(name: "dumbbell row unilateral", muscles: [.high: [.lats, .trapsMiddle], .medium: [.biceps], .low: [.forearms]]),
+                ExerciseDraft(name: "dumbbell row unilateral", muscles: [.high: [.lats, .trapsMiddle], .medium: [.biceps], .low: [.forearms]], sideType: .split),
                 ExerciseDraft(name: "barbell stiff leg deadlifts", muscles: [.high: [.glutes, .hamstrings], .medium: [.lowerBack]]),
+                ExerciseDraft(name: "barbell step up", muscles: [.high: [.quads], .medium: [.glutes]], sideType: .split)
             ]
         ],
         .III: [
             .isolation: [
                 ExerciseDraft(name: "crunches", muscles: [.high: [.abdominals]]),
+                ExerciseDraft(name: "dumbbell hammer curl", muscles: [.high: [.biceps]]),
+                ExerciseDraft(name: "barbell laying triceps extensions", muscles: [.high: [.triceps]]),
+                ExerciseDraft(name: "barbell curl", muscles: [.high: [.biceps]]),
             ],
             .compound: [
                 ExerciseDraft(name: "pull ups", muscles: [.high: [.lats], .medium: [.biceps], .low: [.forearms]]),

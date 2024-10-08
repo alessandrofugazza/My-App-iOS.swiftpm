@@ -80,86 +80,77 @@ struct WorkoutView: View {
         VStack {
             HStack {
                 VStack {
-                    HStack {
+
                         Text(newExercise.name)
                             .font(.largeTitle)
-                        
-                        VStack {
-                            if randomPriority != nil {
-                                Text(randomPriority!.rawValue)
-                            }
-                            
-                            ForEach([EFatigueLevel.high, EFatigueLevel.medium, EFatigueLevel.low], id: \.self) { fatigueLevel in
-                                if let muscleList = newExercise.muscles[fatigueLevel] {
-                                    VStack(alignment: .leading) {
-                                        Text(fatigueLevel.rawValue.capitalized) // Display the fatigue level (e.g., High, Medium, Low)
-                                            .font(.headline)
-                                        
-                                        ForEach(muscleList, id: \.self) { muscle in
-                                            Text(muscle.rawValue) // Display each muscle in that fatigue level
-                                                .font(.body)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .padding()
-                    }
+                    
                 }
             }
             
             .animation(.default, value: newExercise.id)
             
             if newExercise.name != "" {
-                HStack {
-                    Button(action: {
-                        if currentRepetitions > 0 {
-                            currentRepetitions -= 1
-                            saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                VStack {
+                    HStack {
+                        Button(action: {
+                            if currentRepetitions > 0 {
+                                currentRepetitions -= 1
+                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                            }
+                        }) {
+                            Image(systemName: "minus.circle")
+                                .font(.largeTitle)
                         }
-                    }) {
-                        Image(systemName: "minus.circle")
-                            .font(.largeTitle)
-                    }
-                    
-                    Text("\(currentRepetitions) reps")
-                        .font(.title)
-                        .padding(.horizontal)
-                    
-                    Button(action: {
-                        currentRepetitions += 1
-                        saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                    }) {
-                        Image(systemName: "plus.circle")
-                            .font(.largeTitle)
-                    }
-                }
-                .padding()
-                
-                HStack {
-                    Button(action: {
-                        if currentWeight > 0 {
-                            currentWeight -= 1
+                        
+                        Spacer()
+                        
+                        Text("\(currentRepetitions) reps")
+                            .font(.title)
+                            .frame(width: 100) // Set fixed width for the text
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            currentRepetitions += 1
                             saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                        }) {
+                            Image(systemName: "plus.circle")
+                                .font(.largeTitle)
                         }
-                    }) {
-                        Image(systemName: "minus.circle")
-                            .font(.largeTitle)
                     }
+                    .frame(width: 300) // Fixed width for the entire HStack
+                    .padding()
                     
-                    Text("\(currentWeight) weight")
-                        .font(.title)
-                        .padding(.horizontal)
-                    
-                    Button(action: {
-                        currentWeight += 1
-                        saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                    }) {
-                        Image(systemName: "plus.circle")
-                            .font(.largeTitle)
+                    HStack {
+                        Button(action: {
+                            if currentWeight > 0 {
+                                currentWeight -= 1
+                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                            }
+                        }) {
+                            Image(systemName: "minus.circle")
+                                .font(.largeTitle)
+                        }
+                        
+                        Spacer()
+                        
+                        Text("\(currentWeight) kg")
+                            .font(.title)
+                            .frame(width: 100) // Set fixed width for the text
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            currentWeight += 1
+                            saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
+                        }) {
+                            Image(systemName: "plus.circle")
+                                .font(.largeTitle)
+                        }
                     }
+                    .frame(width: 300) // Fixed width for the entire HStack
+                    .padding()
                 }
-                .padding()
             }
             
             
@@ -216,6 +207,7 @@ struct WorkoutView: View {
             for priority in EPriority.allCases {
                 for _ in 1...i {
                     prioritiesPool.append(priority)
+//                    print(priority.rawValue)
                 }
                 i /= 2
             }
