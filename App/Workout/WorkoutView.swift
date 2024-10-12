@@ -63,6 +63,7 @@ struct WorkoutView: View {
                         } else {
                             if draft.sideType == .singleFocus {
                                 newExercise.side = draft.sideFocus
+//                                seems to not be working?
                                 newExercise.name.append(draft.sideFocus?.rawValue ?? "Missing side focus")
                             }
                             exercises.append(newExercise)
