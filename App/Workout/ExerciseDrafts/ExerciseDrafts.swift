@@ -9,6 +9,7 @@ class ExerciseDrafts: ObservableObject {
                 ExerciseDraft(name: "machine hamstring curl", muscles: [.high: [.hamstrings]]),
                 ExerciseDraft(name: "dumbbell lateral raise", muscles: [.high: [.lateralShoulder]]),
                 ExerciseDraft(name: "leg raises", muscles: [.high: [.abdominals]]),
+                ExerciseDraft(name: "machine leg extension", muscles: [.high: [.quads]]),
             ],
             .compound: [
                 ExerciseDraft(name: "barbell squat", muscles: [.high: [.quads], .medium: [.glutes], .low: [.lowerBack]]),

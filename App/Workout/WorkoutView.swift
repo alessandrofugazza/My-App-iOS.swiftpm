@@ -12,7 +12,7 @@ struct WorkoutView: View {
     @State var allExercises: [EPriority: [EMechanic: [Exercise]]] = [:]
     @State var flag = false
     @State var randomPriority: EPriority? = nil
-    @State var currentMachanic: EMechanic = .compound
+    @State var currentMachanic: EMechanic = .isolation
     @State var currentRepetitions: Int = 0
     @State var currentWeight: Int = 0
     
@@ -204,7 +204,7 @@ struct WorkoutView: View {
             }
         }
         .onAppear {
-            var i = 4
+            var i = 8
             for priority in EPriority.allCases {
                 for _ in 1...i {
                     prioritiesPool.append(priority)
@@ -214,6 +214,8 @@ struct WorkoutView: View {
             }
             
             allExercises = setUpExercises()
+            prevExercise = Exercise()
+            newExercise = Exercise()
         }
     }
 }
