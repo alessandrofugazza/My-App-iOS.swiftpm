@@ -92,35 +92,10 @@ struct WorkoutView: View {
             
             if newExercise.name != "" {
                 VStack {
-                    HStack {
-                        Button(action: {
-                            if currentRepetitions > 0 {
-                                currentRepetitions -= 1
-                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                            }
-                        }) {
-                            Image(systemName: "minus.circle")
-                                .font(.largeTitle)
-                        }
-                        
-                        Spacer()
-                        
-                        Text("\(currentRepetitions) reps")
-                            .font(.title)
-                            .frame(width: 100) // Set fixed width for the text
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            currentRepetitions += 1
-                            saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                        }) {
-                            Image(systemName: "plus.circle")
-                                .font(.largeTitle)
-                        }
+                    RepetitionControlView(currentRepetitions: $currentRepetitions) {
+                        saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
                     }
-                    .frame(width: 300) // Fixed width for the entire HStack
-                    .padding()
+                        
                     
                     HStack {
                         Button(action: {
