@@ -24,6 +24,7 @@ class ExerciseDrafts: ObservableObject {
                 ExerciseDraft(name: "dumbbell skullcrusher", muscles: [.high: [.triceps]]),
                 ExerciseDraft(name: "weighted leg raises", muscles: [.high: [.quads]], sideType: .split),
                 ExerciseDraft(name: "oblique crunch", muscles: [.high: [.obliques]], sideType: .split),
+                ExerciseDraft(name: "standing hamstring curl", muscles: [.high: [.hamstrings]]),
             ],
             .compound: [
                 ExerciseDraft(name: "push up", muscles: [.high: [.chest], .medium: [.triceps]]),

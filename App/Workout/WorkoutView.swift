@@ -79,53 +79,19 @@ struct WorkoutView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                VStack {
-
-                        Text(newExercise.name)
-                            .font(.largeTitle)
-                    
-                }
-            }
-            
-            .animation(.default, value: newExercise.id)
-            
+            Text(newExercise.name)
+                .font(.largeTitle)
+                .animation(.default, value: newExercise.id)
             if newExercise.name != "" {
                 VStack {
-                    RepetitionControlView(currentRepetitions: $currentRepetitions) {
+                    RepetitionControlComponentView(currentRepetitions: $currentRepetitions) {
                         saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
                     }
-                        
-                    
-                    HStack {
-                        Button(action: {
-                            if currentWeight > 0 {
-                                currentWeight -= 1
-                                saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                            }
-                        }) {
-                            Image(systemName: "minus.circle")
-                                .font(.largeTitle)
-                        }
-                        
-                        Spacer()
-                        
-                        Text("\(currentWeight) kg")
-                            .font(.title)
-                            .frame(width: 100) // Set fixed width for the text
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            currentWeight += 1
-                            saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
-                        }) {
-                            Image(systemName: "plus.circle")
-                                .font(.largeTitle)
-                        }
+                    WeightControlComponentView(currentWeight: $currentWeight) {
+                        saveExerciseData(repetitions: currentRepetitions, weight: currentWeight, for: prevExercise.draftId)
                     }
-                    .frame(width: 300) // Fixed width for the entire HStack
-                    .padding()
+                    
+                    
                 }
             }
             

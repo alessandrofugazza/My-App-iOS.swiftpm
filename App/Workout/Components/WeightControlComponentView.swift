@@ -1,14 +1,14 @@
 import SwiftUI
 
-struct RepetitionControlView: View {
-    @Binding var currentRepetitions: Int
+struct WeightControlComponentView: View {
+    @Binding var currentWeight: Int
     let onSave: () -> Void
     
     var body: some View {
         HStack {
             Button(action: {
-                if currentRepetitions > 0 {
-                    currentRepetitions -= 1
+                if currentWeight > 0 {
+                    currentWeight -= 1
                     onSave()
                 }
             }) {
@@ -18,22 +18,21 @@ struct RepetitionControlView: View {
             
             Spacer()
             
-            Text("\(currentRepetitions) reps")
+            Text("\(currentWeight) kg")
                 .font(.title)
-                .frame(width: 100) // Set fixed width for the text
+                .frame(width: 100)
             
             Spacer()
             
             Button(action: {
-                currentRepetitions += 1
+                currentWeight += 1
                 onSave()
             }) {
                 Image(systemName: "plus.circle")
                     .font(.largeTitle)
             }
         }
-        .frame(width: 300) // Fixed width for the entire HStack
+        .frame(width: 300)
         .padding()
     }
 }
-
