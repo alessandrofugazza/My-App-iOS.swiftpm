@@ -1,6 +1,6 @@
 import Foundation
 
-enum ESide : String {
+enum ESide : String, Codable {
     case left = " (L)"
     case right = " (R)"
 }

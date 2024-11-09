@@ -1,4 +1,4 @@
-enum EPriority: String, CaseIterable, Identifiable {
+enum EPriority: String, CaseIterable, Identifiable, Codable {
     case I = "I"
     case II = "II"
     case III = "III"

@@ -1,4 +1,4 @@
-enum EMechanic : CaseIterable {
+enum EMechanic : CaseIterable, Codable {
     case isolation
     case compound
 }

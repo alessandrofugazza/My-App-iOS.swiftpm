@@ -1,6 +1,6 @@
 import Foundation
 
-enum EMuscle : String, CaseIterable {
+enum EMuscle : String, CaseIterable, Codable {
     case traps
     case frontShoulder
     case triceps
