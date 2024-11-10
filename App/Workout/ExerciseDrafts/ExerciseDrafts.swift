@@ -2,6 +2,10 @@ import Foundation
 
 class ExerciseDrafts: ObservableObject {
     
+    init() {
+        loadExerciseDrafts()
+    }
+    
     func saveExerciseDrafts() {
         let encoder = JSONEncoder()
         do {
@@ -23,6 +27,8 @@ class ExerciseDrafts: ObservableObject {
             }
         }
     }
+    
+    
     
     @Published var exerciseDrafts: [EPriority: [EMechanic: [ExerciseDraft]]] = [
         .I: [
