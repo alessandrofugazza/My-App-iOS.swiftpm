@@ -12,6 +12,18 @@ class ExerciseDrafts: ObservableObject {
         }
     }
     
+    func loadExerciseDrafts() {
+        let decoder = JSONDecoder()
+        if let data = UserDefaults.standard.data(forKey: "exerciseDraftsData") {
+            do {
+                let decodedData = try decoder.decode([EPriority: [EMechanic: [ExerciseDraft]]].self, from: data)
+                exerciseDrafts = decodedData
+            } catch {
+                print("Failed to decode exercise drafts: \(error)")
+            }
+        }
+    }
+    
     @Published var exerciseDrafts: [EPriority: [EMechanic: [ExerciseDraft]]] = [
         .I: [
             .isolation: [
