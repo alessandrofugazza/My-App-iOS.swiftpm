@@ -1,6 +1,17 @@
 import Foundation
 
-class ExerciseDrafts: ObservableObject {
+class ExerciseDrafts: ObservableObject, Codable {
+    
+    func saveExerciseDrafts() {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(exerciseDrafts)
+            UserDefaults.standard.set(data, forKey: "exerciseDraftsData")
+        } catch {
+            print("Failed to encode exercise drafts: \(error)")
+        }
+    }
+    
     @Published var exerciseDrafts: [EPriority: [EMechanic: [ExerciseDraft]]] = [
         .I: [
             .isolation: [
