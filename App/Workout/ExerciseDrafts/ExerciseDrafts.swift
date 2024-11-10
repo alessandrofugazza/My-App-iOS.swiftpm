@@ -1,6 +1,6 @@
 import Foundation
 
-class ExerciseDrafts: ObservableObject, Codable {
+class ExerciseDrafts: ObservableObject {
     
     func saveExerciseDrafts() {
         let encoder = JSONEncoder()

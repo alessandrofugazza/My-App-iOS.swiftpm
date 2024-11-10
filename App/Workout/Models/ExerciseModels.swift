@@ -1,6 +1,6 @@
 import Foundation
 
-struct ExerciseDraft : Identifiable {
+struct ExerciseDraft : Identifiable, Codable {
     var name : String
     var muscles : [EFatigueLevel: [EMuscle]]
     var sideType : ESideType = .both
