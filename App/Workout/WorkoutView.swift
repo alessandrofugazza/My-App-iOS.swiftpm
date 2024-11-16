@@ -16,6 +16,24 @@ struct WorkoutView: View {
     @State var currentRepetitions: Int = 0
     @State var currentWeight: Int = 0
     
+    @State private var isFocusExerciseTimerTriggered = true
+    @State private var focusExerciseTimer: Timer?
+    
+    
+    
+    func startFocusExerciseTimer() {
+        focusExerciseTimer?.invalidate()
+        
+        focusExerciseTimer = Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
+            isFocusExerciseTimerTriggered = true
+        }
+    }
+    
+    func stopTimer() {
+        focusExerciseTimer?.invalidate()
+        focusExerciseTimer = nil
+    }
+    
     func saveExerciseData(repetitions: Int, weight: Int, for id: String) {
         let key = "exercise_\(id)"
         let exerciseData: SavedExerciseData = ["repetitions": repetitions, "weight": weight]
@@ -100,21 +118,28 @@ struct WorkoutView: View {
                 .padding()
             
             Button(action: {
-                randomPriority = prioritiesPool.randomElement()!
-                currentMachanic = currentMachanic == .compound ? .isolation : .compound
-                
-                repeat {
-                    flag = false
-                    if let selectedExercise = allExercises[randomPriority!]?[currentMachanic]!.randomElement() {
-                        newExercise = selectedExercise
-                    }
+                if isFocusExerciseTimerTriggered {
+                    newExercise.name = "FOCUS"
+                    isFocusExerciseTimerTriggered = false
+                    startFocusExerciseTimer()
+                } else {
                     
-                    if haveCommonMuscles(newExercise, prevExercise) {
-                        flag = true
-                        continue
-                    }
-                } while flag
-                
+                    
+                    randomPriority = prioritiesPool.randomElement()!
+                    currentMachanic = currentMachanic == .compound ? .isolation : .compound
+                    
+                    repeat {
+                        flag = false
+                        if let selectedExercise = allExercises[randomPriority!]?[currentMachanic]!.randomElement() {
+                            newExercise = selectedExercise
+                        }
+                        
+                        if haveCommonMuscles(newExercise, prevExercise) {
+                            flag = true
+                            continue
+                        }
+                    } while flag
+                }
                 prevExercise = newExercise
                 
                 let currentExerciseSavedData = getExerciseData(for: newExercise.draftId)

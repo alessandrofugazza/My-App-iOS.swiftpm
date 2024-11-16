@@ -4,7 +4,7 @@ class ExerciseDrafts: ObservableObject {
     @Published var exerciseDrafts: [EPriority: [EMechanic: [ExerciseDraft]]] = [
         .I: [
             .isolation: [
-                ExerciseDraft(name: "dumbbell wrist curl", muscles: [.high: [.forearms]], sideFocus: .left),
+//                ExerciseDraft(name: "dumbbell wrist curl", muscles: [.high: [.forearms]], sideFocus: .left),
                 ExerciseDraft(name: "dumbbell calf raises", muscles: [.high: [.calves]], sideType: .split),
                 ExerciseDraft(name: "machine hamstring curl", muscles: [.high: [.hamstrings]]),
                 ExerciseDraft(name: "dumbbell lateral raise", muscles: [.high: [.lateralShoulder]]),
