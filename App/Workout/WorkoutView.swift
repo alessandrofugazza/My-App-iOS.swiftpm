@@ -118,12 +118,16 @@ struct WorkoutView: View {
                 .padding()
             
             Button(action: {
-                if isFocusExerciseTimerTriggered {
+                if isFocusExerciseTimerTriggered && newExercise.name != "FOCUS" {
+                        
                     newExercise.name = "FOCUS"
-                    isFocusExerciseTimerTriggered = false
-                    startFocusExerciseTimer()
-                } else {
                     
+                    
+                } else {
+                    if newExercise.name == "FOCUS" {
+                        isFocusExerciseTimerTriggered = false
+                        startFocusExerciseTimer()
+                    }
                     
                     randomPriority = prioritiesPool.randomElement()!
                     currentMachanic = currentMachanic == .compound ? .isolation : .compound
@@ -139,13 +143,13 @@ struct WorkoutView: View {
                             continue
                         }
                     } while flag
+                    prevExercise = newExercise
+                    
+                    let currentExerciseSavedData = getExerciseData(for: newExercise.draftId)
+                    currentRepetitions = currentExerciseSavedData?["repetitions"] ?? 0
+                    currentWeight = currentExerciseSavedData?["weight"] ?? 0
+                    
                 }
-                prevExercise = newExercise
-                
-                let currentExerciseSavedData = getExerciseData(for: newExercise.draftId)
-                currentRepetitions = currentExerciseSavedData?["repetitions"] ?? 0
-                currentWeight = currentExerciseSavedData?["weight"] ?? 0
-                
                 withAnimation {
                     scale = 1.1
                 }
