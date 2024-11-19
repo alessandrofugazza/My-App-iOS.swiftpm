@@ -9,6 +9,8 @@ struct HomeView: View {
         "Fear is born of uncertainty; we fear nothing because our purpose is clear and our path is certain.",
         "Were it so easy.",
         "Wir sind von vornherein unlogische und daher ungerechte Wesen, und können diess erkennen: diess ist eine der grössten und unauflösbarsten Disharmonien des Daseins.",
+        "Dass der Andere leidet, ist zu lernen: und völlig kann es nie gelernt werden.",
+        "Ohne Lust kein Leben; der Kampf um die Lust ist der Kampf um das Leben. Ob der Einzelne diesen Kampf so kämpft, dass die Menschen ihn gut, oder so, dass sie ihn böse nennen, darüber entscheidet das Maass und die Beschaffenheit seines Intellects.",
     ]
     
 //    var shortTodos = [
