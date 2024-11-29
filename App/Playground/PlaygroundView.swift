@@ -10,7 +10,7 @@ struct PlaygroundView: View {
         NavlinkData(label: "Quotes", view: AnyView(PGQuotes())),
         NavlinkData(label: "ExerciseStats", view: AnyView(ExerciseStats())),
         NavlinkData(label: "PGInput", view: AnyView(PGInput())),
-        
+        NavlinkData(label: "Navigation", view: AnyView(PGNavigationMain())),
     ]
     
     var body: some View {
@@ -35,11 +35,5 @@ struct PlaygroundView: View {
             }
         }
         .padding()
-    }
-}
-
-struct PlaygroundView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlaygroundView().environmentObject(ExerciseDrafts())
     }
 }

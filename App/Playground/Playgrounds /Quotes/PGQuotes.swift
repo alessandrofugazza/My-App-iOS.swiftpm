@@ -13,6 +13,7 @@ struct PGQuotes : View {
         Quote(text: "Their gross misconduct almost cost us our home, but has given us a renewed sense of purpose and tempered in the fires of adversity, our will is forged anew."),
         Quote(text: "Fear is born of uncertainty; we fear nothing because our purpose is clear and our path is certain."),
         Quote(text: "Were it so easy."),
+        Quote(text: "Sorrow is knowledge: they who know the most must mourn the deepst o'er the fatal truth, the tree of knowledge is not that of life."),
     ]
     
     var body : some View {
