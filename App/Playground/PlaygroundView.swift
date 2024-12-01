@@ -15,11 +15,12 @@ struct PlaygroundView: View {
     
     var body: some View {
         VStack {
+            Text("Welcome to the Playground")
+                .font(.largeTitle)
+            Text("Who told you what was down here?")
+                .font(.caption)
             NavigationStack {
-                Text("Welcome to the Playground")
-                    .font(.largeTitle)
-                Text("Who told you what was down here?")
-                    .font(.caption)
+                
                 List {
                     ForEach(NavData) { navEntry in
                         NavigationLink(destination: navEntry.view
