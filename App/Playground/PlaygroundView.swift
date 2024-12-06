@@ -20,16 +20,13 @@ struct PlaygroundView: View {
             Text("Who told you what was down here?")
                 .font(.caption)
             NavigationStack {
-                
                 List {
                     ForEach(NavData) { navEntry in
-                        NavigationLink { 
+                        NavigationLink(navEntry.label) {
                             navEntry.view
                                 .applyNavigationTitleStyle(title: navEntry.label)
                                 .environmentObject(ExerciseDrafts())
-                        } label: { 
-                            Text(navEntry.label)
-                        }
+                            }
                     }
                 }
             }
