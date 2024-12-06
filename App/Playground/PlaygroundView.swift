@@ -23,14 +23,13 @@ struct PlaygroundView: View {
                 
                 List {
                     ForEach(NavData) { navEntry in
-                        NavigationLink(destination: navEntry.view
-                            .applyNavigationTitleStyle(title: navEntry.label)
-                            .environmentObject(ExerciseDrafts()) // IMPROVE this is bullshit why do i need to do this
-                        ) {
+                        NavigationLink { 
+                            navEntry.view
+                                .applyNavigationTitleStyle(title: navEntry.label)
+                                .environmentObject(ExerciseDrafts())
+                        } label: { 
                             Text(navEntry.label)
                         }
-                        
-                    
                     }
                 }
             }
