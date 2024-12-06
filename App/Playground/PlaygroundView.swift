@@ -26,6 +26,7 @@ struct PlaygroundView: View {
                             navEntry.view
                                 .applyNavigationTitleStyle(title: navEntry.label)
                                 .environmentObject(ExerciseDrafts())
+                                .navigationTitle(navEntry.label)
                             }
                     }
                 }
