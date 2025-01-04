@@ -193,5 +193,7 @@ struct WorkoutView: View {
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView()
+            .environmentObject(ExerciseDrafts())
+            
     }
 }
