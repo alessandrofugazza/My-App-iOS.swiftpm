@@ -7,7 +7,7 @@ struct ContentView: View {
         NavlinkData(label: "Workout", view: AnyView(WorkoutView()), image: "dumbbell"),
 //        NavlinkData(label: "Mind", view: AnyView(MindSourcesView()), image: "brain.head.profile"),
 //        NavlinkData(label: "Practical", view: AnyView(PracticalSourcesView()), image: "book.and.wrench"),
-        NavlinkData(label: "Playground", view: AnyView(PlaygroundView()), image: "testtube.2"),
+//        NavlinkData(label: "Playground", view: AnyView(PlaygroundView()), image: "testtube.2"),
     ]
     
     var body: some View {
